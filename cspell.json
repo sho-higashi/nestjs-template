@@ -13,7 +13,9 @@
   "words": [
     "archi",
     "classpath",
+    "corepack",
     "depcruise",
+    "isready",
     "jsons",
     "nestjs",
     "npmpackagejsonlint",

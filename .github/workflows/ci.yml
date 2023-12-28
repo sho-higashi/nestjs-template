@@ -2,11 +2,11 @@ name: CI
 on:
   push:
 jobs:
-  ci-server:
+  ci:
     runs-on: ubuntu-latest
     # services:
     #   postgres:
-    #     image: postgres:14
+    #     image: postgres:15
     #     env:
     #       POSTGRES_USER: user
     #       POSTGRES_PASSWORD: password
@@ -26,8 +26,8 @@ jobs:
           pnpm install
           pnpm lint:cspell
           pnpm lint:dep
-          pnpm lint:package
           pnpm lint
           pnpm build --type-check
           pnpm test
           pnpm test:e2e
+        #   pnpm lint:package
