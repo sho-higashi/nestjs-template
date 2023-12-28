@@ -76,11 +76,11 @@ export class PostRepository {
     } = {};
 
     if (data.content !== undefined) {
-      data.content = data.content ?? '';
+      updateData.content = data.content ?? '';
     }
 
     if (data.title !== undefined) {
-      data.title = data.title ?? '';
+      updateData.title = data.title ?? '';
     }
 
     return this.prisma.post.update({

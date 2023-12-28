@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
-import { UpdateMeDto } from 'src/modules/domain/user/dto/update-user.dto';
 
+import { UpdateMeDto } from '../../src/modules/domain/user/dto/update-user.dto';
 import { UserResponse } from '../../src/modules/domain/user/dto/user.dto';
 import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
 import {

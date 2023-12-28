@@ -4,7 +4,7 @@ import request from 'supertest';
 export const createRestRequest = (app: INestApplication) => {
   return <TVariables extends object | undefined, TResponse extends object>(
     path: string,
-    method: 'get' | 'post' | 'patch' | 'delete',
+    method: 'get' | 'post' | 'put' | 'patch' | 'delete',
     variables?: TVariables,
     token?: string,
   ): Promise<{
@@ -16,7 +16,7 @@ export const createRestRequest = (app: INestApplication) => {
       requestTest.set({ Authorization: `Bearer ${token}` });
     }
 
-    return requestTest.send(variables);
+    return requestTest.send(variables ?? {});
   };
 };
 

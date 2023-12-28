@@ -48,12 +48,14 @@ export class PostService {
     return this.repo.create(dto, user);
   }
 
-  async update(user: AuthUser, dto: UpdatePostDto): Promise<PostResponse> {
-    const { id, ...data } = dto;
-
+  async update(
+    user: AuthUser,
+    id: string,
+    dto: UpdatePostDto,
+  ): Promise<PostResponse> {
     const found = await this.#findByIdOrThrow(id, user);
 
-    return this.repo.update(found, data);
+    return this.repo.update(found, dto);
   }
 
   async removeMany(

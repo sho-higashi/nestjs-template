@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  Param,
   Post,
   Put,
   Query,
@@ -35,11 +37,12 @@ export class PostController {
   @Get(':id')
   getPost(
     @CurrentUser() user: AuthUser,
-    @Query('id') id: string,
+    @Param('id') id: string,
   ): Promise<PostResponse> {
     return this.service.get(user, id);
   }
 
+  @HttpCode(200)
   @Post()
   createPost(
     @CurrentUser() user: AuthUser,
@@ -51,9 +54,10 @@ export class PostController {
   @Put(':id')
   putPost(
     @CurrentUser() user: AuthUser,
+    @Param('id') id: string,
     @Body() dto: UpdatePostDto,
   ): Promise<PostResponse> {
-    return this.service.update(user, dto);
+    return this.service.update(user, id, dto);
   }
 
   @Delete()
