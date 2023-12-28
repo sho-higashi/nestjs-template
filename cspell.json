@@ -17,10 +17,12 @@
     "corepack",
     "depcruise",
     "datasource",
+    "fkey",
     "isready",
     "jsons",
     "nestjs",
     "npmpackagejsonlint",
+    "pkey",
     "sonarjs"
   ]
 }

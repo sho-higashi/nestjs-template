@@ -2,7 +2,22 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 
 export const createRequester = (app: INestApplication) => {
-  return (path: string) => request(app.getHttpServer()).get(path);
+  return <TVariables extends object | undefined, TResponse extends object>(
+    path: string,
+    method: 'get' | 'post' | 'patch' | 'delete',
+    variables?: TVariables,
+    token?: string,
+  ): Promise<{
+    body: TResponse;
+    status: number;
+  }> => {
+    const requestTest = request(app.getHttpServer())[method](path);
+    if (token) {
+      requestTest.set({ Authorization: `Bearer ${token}` });
+    }
+
+    return requestTest.send(variables);
+  };
 };
 
 export type Requester = ReturnType<typeof createRequester>;

@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 
-import { PrismaService } from '../src/modules/infra/prisma/prisma.service';
-import { bootstrap, cleanup, createRequester, Requester } from './utils';
+import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+import { bootstrap, cleanup, createRequester, Requester } from '../utils';
 
 describe('HealthCheckController', () => {
   let app: INestApplication;
@@ -21,7 +21,7 @@ describe('HealthCheckController', () => {
   });
 
   it('.well-known/health (GET)', async () => {
-    const res = await requestHealthCheck('/.well-known/health');
+    const res = await requestHealthCheck('/.well-known/health', 'get');
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
