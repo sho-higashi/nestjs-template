@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { InfraModule } from '../../infra/infra.module';
+import { RepositoryModule } from '../../repository/repository.module';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
 @Module({
   controllers: [UserController],
-  imports: [InfraModule],
+  imports: [RepositoryModule],
   providers: [UserService],
 })
 export class UserModule {}

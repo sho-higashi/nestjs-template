@@ -3,7 +3,7 @@ import { CLS_ID, ClsService } from 'nestjs-cls';
 import { match } from 'ts-pattern';
 
 @Injectable()
-export class CustomLoggingService implements LoggerService {
+export class AppLoggingService implements LoggerService {
   private logger = console;
 
   constructor(private readonly cls: ClsService) {}

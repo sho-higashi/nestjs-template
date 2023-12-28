@@ -6,7 +6,9 @@ import { Environment } from './utils';
 
 async function bootstrap() {
   try {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, {
+      bufferLogs: true,
+    });
 
     const config = app.get<ConfigService<Environment, true>>(ConfigService);
     const port = config.get('PORT', { infer: true });
