@@ -5,6 +5,7 @@ const config: Config = {
   coverageDirectory: './coverage',
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: '.',
+  setupFiles: ['./.jest/jest.setup.ts'],
   testEnvironment: 'node',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
