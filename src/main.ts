@@ -1,12 +1,17 @@
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { Environment } from './utils';
 
 async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule);
 
-    await app.listen(3000);
+    const config = app.get<ConfigService<Environment, true>>(ConfigService);
+    const port = config.get('PORT', { infer: true });
+
+    await app.listen(port);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(

@@ -11,10 +11,9 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String?
-  password String
-  posts    Post[]
+  id    String @id @default(uuid())
+  name  String
+  posts Post[]
 
   // meta
   createdAt DateTime @default(now())
