@@ -2,13 +2,16 @@ import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+const user1Id = '0cabc5ec-d7ae-42bb-9efa-8dd6cd8ab9a6';
+const user2Id = '8fe2957f-a0dd-4dfd-bad2-1ea22f2a79fb';
+
 const userData: Prisma.UserCreateInput[] = [
   {
-    id: '0cabc5ec-d7ae-42bb-9efa-8dd6cd8ab9a6',
+    id: user1Id,
     name: 'Alice',
   },
   {
-    id: '8fe2957f-a0dd-4dfd-bad2-1ea22f2a79fb',
+    id: user2Id,
     name: 'bob',
   },
 ];

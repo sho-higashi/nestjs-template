@@ -200,7 +200,7 @@ module.exports = {
        for a complete list
     */
     doNotFollow: {
-      path: 'node_modules',
+      path: ['node_modules', 'prisma.ts'],
     },
 
     /* false (the default): ignore dependencies that only exist before typescript-to-javascript compilation

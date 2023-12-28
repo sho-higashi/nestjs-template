@@ -20,6 +20,23 @@ postgres: 5432
 
 ## develop app
 
+start app
+
+```sh
+pnpm dev
+```
+
+test
+
+```sh
+# prepare db for testing
+pnpm prepare:e2e:test
+# unit test
+pnpm test:ut
+# api test
+pnpm test:e2e
+```
+
 ### health check
 
 ```sh
@@ -53,6 +70,6 @@ returns
 # build
 docker build --progress=plain -f ./Dockerfile -t nestjs-template .
 
-# run
-docker run -p 3000:3000 -d nestjs-template
+# run on host port 3001
+docker run -p 3001:3000 --network host nestjs-template
 ```

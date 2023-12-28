@@ -1,20 +1,30 @@
-FROM node:20-slim AS base
+FROM node:20-bullseye-slim AS base
+
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 COPY . /app
 WORKDIR /app
 
-FROM base AS prod-deps
+# deps
+FROM base AS installer
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-FROM base AS build
+# builder
+FROM base AS builder
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run build
+RUN pnpm gen:db && pnpm build
+RUN ls -lsa /app/dist
+RUN ls -lsa /app/node_modules
 
-FROM base
-COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist /app/dist
-EXPOSE 8000
+# runner
+FROM base AS runner
+ENV NODE_ENV=production
+ENV PORT=3000
+COPY --from=installer /app/node_modules /app/node_modules
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules/.prisma/client /app/node_modules/.prisma/client
+
+EXPOSE 3000
 
 CMD [ "node", "dist/main.js" ]

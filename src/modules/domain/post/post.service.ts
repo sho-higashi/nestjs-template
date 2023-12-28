@@ -1,8 +1,73 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { AuthUser } from '../../../interfaces';
+import { PostRepository } from '../../repository/post.repository';
+import { CreatePostDto } from './dto/create-post.dto';
+import { ListPostDto, ListPostResponse } from './dto/list-post.dto';
+import { PostResponse } from './dto/post.dto';
+import { RemovePostsDto, RemovePostsResponse } from './dto/remove-posts.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(private readonly repo: PostRepository) {}
+
+  async list(user: AuthUser, dto: ListPostDto): Promise<ListPostResponse> {
+    const where = { owner: user };
+    const limit = dto.limit ?? 20;
+    const offset = dto.offset ?? 0;
+    const order = 'asc';
+    const orderBy = 'createdAt';
+    const [posts, totalCount] = await Promise.all([
+      this.repo.list({ limit, offset, order, orderBy, where }),
+      this.repo.count(where),
+    ]);
+
+    return {
+      limit,
+      offset,
+      posts,
+      totalCount,
+    };
+  }
+
+  #findByIdOrThrow = async (id: string, owner: AuthUser) => {
+    const found = await this.repo.findById(id, owner);
+    if (!found) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return found;
+  };
+
+  async get(user: AuthUser, id: string): Promise<PostResponse> {
+    return this.#findByIdOrThrow(id, user);
+  }
+
+  async create(user: AuthUser, dto: CreatePostDto): Promise<PostResponse> {
+    return this.repo.create(dto, user);
+  }
+
+  async update(user: AuthUser, dto: UpdatePostDto): Promise<PostResponse> {
+    const { id, ...data } = dto;
+
+    const found = await this.#findByIdOrThrow(id, user);
+
+    return this.repo.update(found, data);
+  }
+
+  async removeMany(
+    user: AuthUser,
+    dto: RemovePostsDto,
+  ): Promise<RemovePostsResponse> {
+    const { ids } = dto;
+    const found = await this.repo.findByIds(ids, user);
+    if (found.length !== ids.length) {
+      throw new NotFoundException('Post not found');
+    }
+
+    await this.repo.removeMany(found);
+
+    return { success: true };
   }
 }
