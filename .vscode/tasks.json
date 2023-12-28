@@ -13,8 +13,8 @@
       "type": "shell"
     },
     {
-      "command": "git commit --amend --no-edit",
-      "label": "commit amend",
+      "command": "git add . && git commit --amend --no-edit",
+      "label": "commit amend all",
       "problemMatcher": [],
       "type": "shell"
     },

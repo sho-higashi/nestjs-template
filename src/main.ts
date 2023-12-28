@@ -1,8 +1,7 @@
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import { Environment } from './utils';
+import { AppConfigService } from './modules/infra/config/app-config.service';
 
 async function bootstrap() {
   try {
@@ -10,8 +9,8 @@ async function bootstrap() {
       bufferLogs: true,
     });
 
-    const config = app.get<ConfigService<Environment, true>>(ConfigService);
-    const port = config.get('PORT', { infer: true });
+    const config = app.get(AppConfigService);
+    const port = config.get('PORT');
 
     await app.listen(port);
   } catch (err) {
@@ -22,6 +21,7 @@ async function bootstrap() {
         'stack' in (err as any) ? (err as any).stack : err
       }`,
     );
+    process.exit(1);
   }
 }
 bootstrap();
