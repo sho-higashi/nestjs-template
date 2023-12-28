@@ -3,11 +3,11 @@ import { Post } from '../../../infra/prisma/prisma';
 export class PostResponse implements Post {
   id!: string;
 
-  userId!: string;
+  authorId!: string;
 
   title!: string;
 
-  body!: string;
+  content!: string;
 
   createdAt!: Date;
 

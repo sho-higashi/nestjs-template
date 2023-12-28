@@ -6,10 +6,12 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
+import { UserGuard } from '../user/user.guard';
 import { CreatePostDto } from './dto/create-post.dto';
 import { ListPostDto, ListPostResponse } from './dto/list-post.dto';
 import { PostResponse } from './dto/post.dto';
@@ -17,6 +19,7 @@ import { RemovePostsDto, RemovePostsResponse } from './dto/remove-posts.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
+@UseGuards(UserGuard)
 @Controller('posts')
 export class PostController {
   constructor(private readonly service: PostService) {}

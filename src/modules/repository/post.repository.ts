@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { Post, User } from '../infra/prisma/prisma';
+import { Post, Prisma, User } from '../infra/prisma/prisma';
 import { PrismaService } from '../infra/prisma/prisma.service';
 
 type Where = {
@@ -11,8 +11,8 @@ type Where = {
 export class PostRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  #prismaWhere = (where: Where) => {
-    return { removedAt: null, userId: where.owner.id };
+  #prismaWhere = (where: Where): Prisma.PostWhereInput => {
+    return { authorId: where.owner.id, removedAt: null };
   };
 
   async list({
@@ -43,20 +43,20 @@ export class PostRepository {
   }
 
   async findById(id: string, owner: User) {
-    return this.prisma.post.findUnique({ where: { id, userId: owner.id } });
+    return this.prisma.post.findUnique({ where: { authorId: owner.id, id } });
   }
 
   async findByIds(ids: string[], owner: User) {
     return this.prisma.post.findMany({
-      where: { id: { in: ids }, userId: owner.id },
+      where: { authorId: owner.id, id: { in: ids } },
     });
   }
 
-  async create(data: { body: string; title: string }, createdBy: User) {
+  async create(data: { content: string; title: string }, createdBy: User) {
     return this.prisma.post.create({
       data: {
         ...data,
-        User: {
+        author: {
           connect: { id: createdBy.id },
         },
       },
@@ -66,17 +66,17 @@ export class PostRepository {
   async update(
     target: Post,
     data: {
-      body?: string | null;
+      content?: string | null;
       title?: string | null;
     },
   ) {
     const updateData: {
-      body?: string;
+      content?: string;
       title?: string;
     } = {};
 
-    if (data.body !== undefined) {
-      data.body = data.body ?? '';
+    if (data.content !== undefined) {
+      data.content = data.content ?? '';
     }
 
     if (data.title !== undefined) {
