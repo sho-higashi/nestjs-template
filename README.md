@@ -1,16 +1,12 @@
-## Description
+## preparation
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
+```sh
 pnpm install
 ```
 
-## Running the app
+## develop app
 
-```bash
+```sh
 # development
 $ pnpm run start
 
@@ -21,15 +17,12 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## Test
+## develop dockerfile for production
 
-```bash
-# unit tests
-$ pnpm run test
+```sh
+# build
+docker build --progress=plain -f ./Dockerfile -t nestjs-template .
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+# run
+docker run -p 3000:3000 -d nestjs-template
 ```

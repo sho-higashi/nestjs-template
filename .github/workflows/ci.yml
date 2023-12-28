@@ -1,0 +1,34 @@
+name: CI
+on:
+  push:
+jobs:
+  ci-server:
+    runs-on: ubuntu-latest
+    # services:
+    #   postgres:
+    #     image: postgres:14
+    #     env:
+    #       POSTGRES_USER: user
+    #       POSTGRES_PASSWORD: password
+    #       POSTGRES_DB: account
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 5433:5432
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Lint, Build, and Test
+        working-directory: apps/server
+        run: |
+          pnpm install
+          pnpm lint:cspell
+          pnpm lint:dep
+          pnpm lint:package
+          pnpm lint
+          pnpm build --type-check
+          pnpm test
+          pnpm test:e2e

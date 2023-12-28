@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "ignorePaths": [
+    ".git",
+    "dist",
+    "node_modules",
+    "./cspell.json",
+    "./pnpm-lock.yaml",
+    "./tsconfig.build.tsbuildinfo"
+  ],
+  "language": "en",
+  "version": "0.2",
+  "words": [
+    "archi",
+    "classpath",
+    "depcruise",
+    "jsons",
+    "nestjs",
+    "npmpackagejsonlint",
+    "sonarjs"
+  ]
+}
