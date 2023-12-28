@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AppModule } from '../../src/app.module';
+import { UserModule } from '../../src/modules/domain/user/user.module';
 
 export const bootstrap = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
-    imports: [AppModule],
+    imports: [UserModule],
   }).compile();
 
   const app = moduleFixture.createNestApplication();

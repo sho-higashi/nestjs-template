@@ -4,31 +4,33 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    # services:
-    #   postgres:
-    #     image: postgres:15
-    #     env:
-    #       POSTGRES_USER: user
-    #       POSTGRES_PASSWORD: password
-    #       POSTGRES_DB: account
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
-    #     ports:
-    #       - 5433:5432
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: cKXWeJTY
+          POSTGRES_DB: nestjs_template_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5433:5432
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
       - name: Lint, Build, and Test
         run: |
           pnpm install
+          pnpm gen:prisma
           pnpm lint
           pnpm lint:cspell
           pnpm lint:dep
           pnpm lint:package
           pnpm lint:type
+          pnpm format:check
           pnpm build
+          pnpm prepare:test:e2e
           pnpm test
-          pnpm test:e2e
