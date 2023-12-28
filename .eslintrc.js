@@ -10,7 +10,7 @@ const config = {
     'plugin:sonarjs/recommended',
     'plugin:jest/recommended',
   ],
-  ignorePatterns: ['node_modules', 'dist', 'generated'],
+  ignorePatterns: ['node_modules', 'coverage', 'dist', 'generated'],
   overrides: [
     {
       files: ['*.ts'],

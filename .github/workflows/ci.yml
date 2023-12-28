@@ -27,8 +27,8 @@ jobs:
           pnpm lint
           pnpm lint:cspell
           pnpm lint:dep
+          pnpm lint:package
           pnpm lint:type
-          pnpm build --type-check
+          pnpm build
           pnpm test
           pnpm test:e2e
-        #   pnpm lint:package

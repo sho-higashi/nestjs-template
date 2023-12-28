@@ -3,11 +3,13 @@
     {
       "command": "pnpm commit",
       "label": "commit",
+      "problemMatcher": [],
       "type": "shell"
     },
     {
       "command": "pnpm commit --amend --no-edit",
       "label": "commit amend",
+      "problemMatcher": [],
       "type": "shell"
     }
   ],
