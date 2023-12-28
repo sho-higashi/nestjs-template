@@ -7,7 +7,7 @@ export class PostController {
   constructor(private readonly service: PostService) {}
 
   @Get()
-  getHello(): string {
+  listPost(): string {
     return this.service.getHello();
   }
 }
