@@ -58,6 +58,9 @@
     "pnpm": "8.x"
   },
   "name": "nestjs-template",
+  "prisma": {
+    "seed": "ts-node --swc prisma/seed.ts"
+  },
   "private": true,
   "scripts": {
     "build": "nest build -b swc",
@@ -67,8 +70,8 @@
     "dev": "nest start -b swc --watch",
     "format": "prettier --write .*/*.{js,json} *.{js,ts,json,yml} ./**/*.{js,ts,json,yml} --plugin=prettier-plugin-sort-json",
     "format:check": "prettier --check .*/*.{js,json} *.{js,ts,json,yml} ./**/*.{js,ts,json,yml} --plugin=prettier-plugin-sort-json",
-    "format:prisma": "prisma format",
-    "gen:prisma": "prisma generate",
+    "format:db": "prisma format",
+    "gen:db": "prisma generate",
     "lint": "eslint \"{prisma,src,test}/**/*.ts\" \"./**/*.{js,json}\"",
     "lint:cspell": "cspell -c cspell.json \"**\" \".*\" \".*/**\"",
     "lint:dep": "depcruise --config .dependency-cruiser.js src",

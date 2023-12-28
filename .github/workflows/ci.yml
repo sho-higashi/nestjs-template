@@ -24,7 +24,7 @@ jobs:
       - name: Lint, Build, and Test
         run: |
           pnpm install
-          pnpm gen:prisma
+          pnpm gen:db
           pnpm lint
           pnpm lint:cspell
           pnpm lint:dep
