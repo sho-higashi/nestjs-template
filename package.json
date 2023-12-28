@@ -9,7 +9,7 @@
     "nestjs-cls": "3.6.0",
     "reflect-metadata": "0.1.14",
     "rxjs": "7.8.1",
-    "ts-pattern": "^5.0.6",
+    "ts-pattern": "5.0.6",
     "zod": "3.21.4"
   },
   "devDependencies": {
