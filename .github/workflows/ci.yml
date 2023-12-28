@@ -24,9 +24,10 @@ jobs:
       - name: Lint, Build, and Test
         run: |
           pnpm install
+          pnpm lint
           pnpm lint:cspell
           pnpm lint:dep
-          pnpm lint
+          pnpm lint:type
           pnpm build --type-check
           pnpm test
           pnpm test:e2e

@@ -54,6 +54,7 @@
   "private": true,
   "scripts": {
     "build": "nest build -b swc",
+    "clean": "rm -rf dist",
     "commit": "git-cz",
     "commit:all": "git add . && pnpm commit",
     "dev": "nest start -b swc --watch",
@@ -64,9 +65,10 @@
     "lint:cspell": "cspell -c cspell.json \"**\" \".*\" \".*/**\"",
     "lint:dep": "depcruise --config .dependency-cruiser.js src",
     "lint:package": "npmPkgJsonLint --configFile ./npmpackagejsonlint.config.js .",
+    "lint:type": "tsc --noEmit",
     "start": "nest start",
     "test": "jest -c ./jest.config.ts",
-    "test:e2e": "jest -c ./test/jest-e2e.json"
+    "test:e2e": "jest -c ./test/jest-e2e.config.ts"
   },
   "version": "0.0.1"
 }
