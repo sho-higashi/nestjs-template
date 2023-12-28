@@ -7,7 +7,13 @@
       "type": "shell"
     },
     {
-      "command": "pnpm commit --amend --no-edit",
+      "command": "pnpm commit:all",
+      "label": "commit all",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "git commit --amend --no-edit",
       "label": "commit amend",
       "problemMatcher": [],
       "type": "shell"
