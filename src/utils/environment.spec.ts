@@ -3,7 +3,7 @@ import { validate } from './environment';
 describe('environment', () => {
   const base = {
     DATABASE_URL: 'postgres://postgres:password@localhost:5432/nestjs_template',
-    ENV: 'development',
+    ENV: 'local',
   };
   it('port specified', () => {
     expect(validate({ ...base, PORT: '3001' })).toEqual({

@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 import { AppConfigService } from './modules/infra/config/app-config.service';
+import { isEnvForDev } from './utils';
 
 async function bootstrap() {
   try {
@@ -10,8 +12,20 @@ async function bootstrap() {
     });
 
     const config = app.get(AppConfigService);
-    const port = config.get('PORT');
 
+    const env = config.get('ENV');
+    if (isEnvForDev(env)) {
+      const swaggerConfig = new DocumentBuilder()
+        .setTitle('Cats example')
+        .setDescription('The cats API description')
+        .setVersion('1.0')
+        .addTag('cats')
+        .build();
+      const document = SwaggerModule.createDocument(app, swaggerConfig);
+      SwaggerModule.setup('docs', app, document);
+    }
+
+    const port = config.get('PORT');
     await app.listen(port);
   } catch (err) {
     // eslint-disable-next-line no-console
