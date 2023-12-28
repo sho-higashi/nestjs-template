@@ -67,8 +67,8 @@
     "lint:package": "npmPkgJsonLint --configFile ./npmpackagejsonlint.config.js .",
     "lint:type": "tsc --noEmit",
     "start": "nest start",
-    "test": "jest -c ./jest.config.ts",
-    "test:e2e": "jest -c ./test/jest-e2e.config.ts"
+    "test": "jest -c ./jest.config.ts src",
+    "test:e2e": "jest -c ./jest.config.ts test"
   },
   "version": "0.0.1"
 }
