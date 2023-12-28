@@ -1,27 +1,31 @@
 import { INestApplication } from '@nestjs/common';
 
 import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
-import { bootstrap, cleanup, createRequester, Requester } from '../utils';
+import { bootstrap, cleanup, createRestRequest, RestRequest } from '../utils';
 
 describe('HealthCheckController', () => {
   let app: INestApplication;
   let prisma: PrismaService;
 
-  let requestHealthCheck: Requester;
+  let request: RestRequest;
 
   beforeAll(async () => {
     const nestApp = await bootstrap();
     app = nestApp.app;
     prisma = nestApp.prisma;
-    requestHealthCheck = createRequester(app);
+    request = createRestRequest(app);
   });
 
   afterEach(async () => {
-    await cleanup(prisma);
+    await cleanup(prisma, { keepUsers: true });
+  });
+
+  afterAll(async () => {
+    await cleanup(prisma, { keepUsers: false });
   });
 
   it('.well-known/health (GET)', async () => {
-    const res = await requestHealthCheck('/.well-known/health', 'get');
+    const res = await request('/.well-known/health', 'get');
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({

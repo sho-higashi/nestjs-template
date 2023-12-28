@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 
-export const createRequester = (app: INestApplication) => {
+export const createRestRequest = (app: INestApplication) => {
   return <TVariables extends object | undefined, TResponse extends object>(
     path: string,
     method: 'get' | 'post' | 'patch' | 'delete',
@@ -20,4 +20,4 @@ export const createRequester = (app: INestApplication) => {
   };
 };
 
-export type Requester = ReturnType<typeof createRequester>;
+export type RestRequest = ReturnType<typeof createRestRequest>;

@@ -1,6 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-export const cleanup = async (prisma: PrismaClient) => {
+export const cleanup = async (
+  prisma: PrismaClient,
+  options: { keepUsers?: boolean } = {},
+) => {
+  const keepUsers =
+    typeof options.keepUsers === 'boolean' ? options.keepUsers : false;
   await prisma.post.deleteMany();
-  await prisma.user.deleteMany();
+
+  if (!keepUsers) await prisma.user.deleteMany();
 };
