@@ -10,7 +10,7 @@ export class AppLoggingService implements LoggerService {
 
   #requestId() {
     try {
-      this.cls.get(CLS_ID);
+      return this.cls.get(CLS_ID);
     } catch {
       return undefined;
     }

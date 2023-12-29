@@ -1,0 +1,7 @@
+{
+  "src/**/*.ts": ["eslint --fix"],
+  "**/*.{js,ts,json,yml}": [
+    "cspell -c ./cspell.json --no-must-find-files --no-progress",
+    "prettier --write"
+  ]
+}

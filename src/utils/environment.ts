@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const environmentSchema = z.object({
   DATABASE_URL: z.string(),
-  ENV: z.enum(['local', 'production', 'staging', 'test']),
+  ENV: z.enum(['local', 'production', 'development', 'staging', 'test']),
   PORT: z
     .string()
     .nullish()
@@ -24,5 +24,5 @@ export const validate = (config: Record<string, unknown>) =>
   environmentSchema.parse(config);
 
 export const isEnvForDev = (env: Environment['ENV']) => {
-  return ['local', 'test'].includes(env);
+  return ['local', 'test', 'development'].includes(env);
 };

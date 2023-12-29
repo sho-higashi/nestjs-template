@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { AuthUser } from '../../../interfaces';
 import { PostRepository } from '../../repository/post.repository';
@@ -10,9 +10,13 @@ import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostService {
+  logger = new Logger(PostService.name);
+
   constructor(private readonly repo: PostRepository) {}
 
   async list(user: AuthUser, dto: ListPostDto): Promise<ListPostResponse> {
+    this.logger.log('list post');
+
     const where = { owner: user };
     const limit = dto.limit ?? 20;
     const offset = dto.offset ?? 0;
@@ -24,8 +28,10 @@ export class PostService {
     ]);
 
     return {
-      limit,
-      offset,
+      pagination: {
+        page: Math.floor(offset / limit) + 1,
+        perPage: limit,
+      },
       posts,
       totalCount,
     };

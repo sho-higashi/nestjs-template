@@ -9,6 +9,10 @@ a template app for nestjs
 
 ```sh
 pnpm install
+cp .env.sample .env
+docker compose up -d
+pnpm gen:db
+pnpm reset:db
 ```
 
 default ports
@@ -26,7 +30,13 @@ start app
 pnpm dev
 ```
 
-test
+### api interface
+
+open api docs
+
+<http://localhost:3000/docs>
+
+### test
 
 ```sh
 # prepare db for testing

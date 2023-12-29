@@ -10,6 +10,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
@@ -22,11 +23,17 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
 @UseGuards(UserGuard)
+@ApiTags('cats')
 @Controller('posts')
 export class PostController {
   constructor(private readonly service: PostService) {}
 
   @Get()
+  @ApiBody({ type: ListPostDto })
+  @ApiOkResponse({
+    description: 'List of posts',
+    type: ListPostResponse,
+  })
   listPost(
     @CurrentUser() user: AuthUser,
     @Query() dto: ListPostDto,
@@ -43,6 +50,7 @@ export class PostController {
   }
 
   @HttpCode(200)
+  @ApiBody({ type: CreatePostDto })
   @Post()
   createPost(
     @CurrentUser() user: AuthUser,
