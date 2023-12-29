@@ -1,1 +1,346 @@
-{"openapi":"3.0.0","paths":{"/.well-known/health":{"get":{"operationId":"HealthCheckController_check","parameters":[],"responses":{"200":{"description":"The Health Check is successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"ok"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}},"nullable":true},"error":{"type":"object","example":{},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}}}}}}}},"503":{"description":"The Health Check is not successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"error"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}},"nullable":true},"error":{"type":"object","example":{"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"},"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","properties":{"status":{"type":"string"}},"additionalProperties":{"type":"string"}}}}}}}}}}},"/users/me":{"get":{"operationId":"UserController_getMe","parameters":[],"responses":{"200":{"description":""}}},"patch":{"operationId":"UserController_updateMe","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateMeDto"}}}},"responses":{"200":{"description":""}}}},"/posts":{"get":{"operationId":"PostController_listPost","parameters":[{"name":"limit","required":false,"in":"query","example":20,"schema":{"default":20,"type":"number"}},{"name":"offset","required":false,"in":"query","example":0,"schema":{"default":0,"type":"number"}},{"name":"order","required":false,"in":"query","example":"asc","schema":{"default":"desc","enum":["asc","desc"],"type":"string"}},{"name":"orderBy","required":false,"in":"query","example":"createdAt","schema":{"default":"createdAt","enum":["createdAt","updatedAt"],"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ListPostDto"}}}},"responses":{"200":{"description":"List of posts","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ListPostResponse"}}}}},"tags":["cats"]},"post":{"operationId":"PostController_createPost","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreatePostDto"}}}},"responses":{"200":{"description":""}},"tags":["cats"]},"delete":{"operationId":"PostController_removePosts","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RemovePostsDto"}}}},"responses":{"200":{"description":""}},"tags":["cats"]}},"/posts/{id}":{"get":{"operationId":"PostController_getPost","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":""}},"tags":["cats"]},"put":{"operationId":"PostController_putPost","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdatePostDto"}}}},"responses":{"200":{"description":""}},"tags":["cats"]}}},"info":{"title":"nestjs template","description":"user and post api description","version":"1.0","contact":{}},"tags":[],"servers":[],"components":{"schemas":{"UpdateMeDto":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]},"ListPostDto":{"type":"object","properties":{"limit":{"type":"number","default":20,"example":20},"offset":{"type":"number","default":0,"example":0},"order":{"type":"string","default":"desc","enum":["asc","desc"],"example":"asc"},"orderBy":{"type":"string","default":"createdAt","enum":["createdAt","updatedAt"],"example":"createdAt"}}},"PostResponse":{"type":"object","properties":{"id":{"type":"string"},"authorId":{"type":"string"},"title":{"type":"string"},"content":{"type":"string"},"createdAt":{"format":"date-time","type":"string"},"updatedAt":{"format":"date-time","type":"string"},"removedAt":{"type":"object"}},"required":["id","authorId","title","content","createdAt","updatedAt"]},"PaginationDto":{"type":"object","properties":{"page":{"type":"number"},"perPage":{"type":"number"}},"required":["page","perPage"]},"ListPostResponse":{"type":"object","properties":{"posts":{"type":"array","items":{"$ref":"#/components/schemas/PostResponse"}},"totalCount":{"type":"number"},"pagination":{"$ref":"#/components/schemas/PaginationDto"}},"required":["posts","totalCount","pagination"]},"CreatePostDto":{"type":"object","properties":{"title":{"type":"string"},"content":{"type":"string"}},"required":["title","content"]},"UpdatePostDto":{"type":"object","properties":{"title":{"type":"object"},"content":{"type":"object"}}},"RemovePostsDto":{"type":"object","properties":{}}}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/.well-known/health": {
+      "get": {
+        "operationId": "HealthCheckController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "error" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": { "status": "up" },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "operationId": "UserController_getMe",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      },
+      "patch": {
+        "operationId": "UserController_updateMe",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateMeDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/posts": {
+      "get": {
+        "operationId": "PostController_listPost",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 20,
+            "schema": { "default": 20, "type": "number" }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "example": 0,
+            "schema": { "default": 0, "type": "number" }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "example": "asc",
+            "schema": {
+              "default": "desc",
+              "enum": ["asc", "desc"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "example": "createdAt",
+            "schema": {
+              "default": "createdAt",
+              "enum": ["createdAt", "updatedAt"],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ListPostDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List of posts",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListPostResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["cats"]
+      },
+      "post": {
+        "operationId": "PostController_createPost",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreatePostDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["cats"]
+      },
+      "delete": {
+        "operationId": "PostController_removePosts",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RemovePostsDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["cats"]
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "operationId": "PostController_getPost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["cats"]
+      },
+      "put": {
+        "operationId": "PostController_putPost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdatePostDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["cats"]
+      }
+    }
+  },
+  "info": {
+    "title": "nestjs template",
+    "description": "user and post api description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "UpdateMeDto": {
+        "type": "object",
+        "properties": { "name": { "type": "string" } },
+        "required": ["name"]
+      },
+      "ListPostDto": {
+        "type": "object",
+        "properties": {
+          "limit": { "type": "number", "default": 20, "example": 20 },
+          "offset": { "type": "number", "default": 0, "example": 0 },
+          "order": {
+            "type": "string",
+            "default": "desc",
+            "enum": ["asc", "desc"],
+            "example": "asc"
+          },
+          "orderBy": {
+            "type": "string",
+            "default": "createdAt",
+            "enum": ["createdAt", "updatedAt"],
+            "example": "createdAt"
+          }
+        }
+      },
+      "PostResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "authorId": { "type": "string" },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "removedAt": { "type": "object" }
+        },
+        "required": [
+          "id",
+          "authorId",
+          "title",
+          "content",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PaginationDto": {
+        "type": "object",
+        "properties": {
+          "page": { "type": "number" },
+          "perPage": { "type": "number" }
+        },
+        "required": ["page", "perPage"]
+      },
+      "ListPostResponse": {
+        "type": "object",
+        "properties": {
+          "posts": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PostResponse" }
+          },
+          "totalCount": { "type": "number" },
+          "pagination": { "$ref": "#/components/schemas/PaginationDto" }
+        },
+        "required": ["posts", "totalCount", "pagination"]
+      },
+      "CreatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "The title of the post" },
+          "content": { "type": "string" }
+        },
+        "required": ["title", "content"]
+      },
+      "UpdatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "object" },
+          "content": { "type": "object" }
+        }
+      },
+      "RemovePostsDto": { "type": "object", "properties": {} }
+    }
+  }
+}
