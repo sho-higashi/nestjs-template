@@ -17,7 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { DOC_JWT_AUTH_NAME } from '../../../consts';
+import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
@@ -29,7 +29,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
 @ApiTags('posts')
-@ApiBearerAuth(DOC_JWT_AUTH_NAME)
+@ApiBearerAuth(DOCUMENT_JWT_AUTH_NAME)
 @UseGuards(UserGuard)
 @Controller('posts')
 export class PostController {

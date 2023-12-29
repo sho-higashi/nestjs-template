@@ -15,7 +15,7 @@ const config = {
     'coverage',
     'dist',
     'generated',
-    'swagger-spec.json',
+    'openapi-spec.json',
   ],
   overrides: [
     {

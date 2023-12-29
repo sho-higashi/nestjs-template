@@ -32,9 +32,15 @@ pnpm dev
 
 ### api interface
 
-open api docs
+open api docs with html
 
-<http://localhost:3000/docs>
+<http://localhost:3000/api-document>
+
+download open api spec in json format
+
+```sh
+curl http://localhost:3000/api-document/api > openapi-spec.json
+```
 
 ### test
 

@@ -5,6 +5,7 @@ import { CLS_ID, ClsModule } from 'nestjs-cls';
 
 import { AppExceptionFilter } from './filters';
 import { AppResponseInterceptor } from './interceptors';
+import { ApiDocumentModule } from './modules/api-document/api-document.module';
 import { DomainModule } from './modules/domain/domain.module';
 import { InfraModule } from './modules/infra/infra.module';
 import { RepositoryModule } from './modules/repository/repository.module';
@@ -14,6 +15,7 @@ import { RepositoryModule } from './modules/repository/repository.module';
     InfraModule,
     RepositoryModule,
     DomainModule,
+    ApiDocumentModule,
     ClsModule.forRoot({
       global: true,
       middleware: {
