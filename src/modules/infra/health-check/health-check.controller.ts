@@ -1,8 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { HealthCheck, HealthCheckService } from '@nestjs/terminus';
 
 import { PrismaHealthIndicator } from './prisma-health-check.indicator';
 
+@ApiExcludeController()
 @Controller('.well-known/health')
 export class HealthCheckController {
   constructor(

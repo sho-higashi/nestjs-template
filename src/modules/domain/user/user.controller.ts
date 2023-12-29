@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { AuthUser } from '../../../interfaces';
 import { UpdateMeDto } from './dto/update-user.dto';
@@ -7,6 +8,7 @@ import { CurrentUser } from './user.decorator';
 import { UserGuard } from './user.guard';
 import { UserService } from './user.service';
 
+@ApiTags('users')
 @UseGuards(UserGuard)
 @Controller('users')
 export class UserController {

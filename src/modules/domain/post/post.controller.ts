@@ -22,8 +22,8 @@ import { RemovePostsDto, RemovePostsResponse } from './dto/remove-posts.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
+@ApiTags('posts')
 @UseGuards(UserGuard)
-@ApiTags('cats')
 @Controller('posts')
 export class PostController {
   constructor(private readonly service: PostService) {}
