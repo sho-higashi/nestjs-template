@@ -2,11 +2,13 @@ import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiForbiddenResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
+import { ErrorResponse } from '../../../dtos';
 import { AuthUser } from '../../../interfaces';
 import { UpdateMeDto } from './dto/update-user.dto';
 import { UserResponse } from './dto/user.dto';
@@ -23,6 +25,7 @@ export class UserController {
 
   @Get('/me')
   @ApiOkResponse({ type: UserResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
   getMe(@CurrentUser() user: AuthUser): UserResponse {
     return user;
   }
@@ -30,6 +33,7 @@ export class UserController {
   @Patch('/me')
   @ApiBody({ type: UpdateMeDto })
   @ApiOkResponse({ type: UserResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
   updateMe(
     @CurrentUser() user: AuthUser,
     @Body() dto: UpdateMeDto,

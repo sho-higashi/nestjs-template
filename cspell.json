@@ -19,6 +19,7 @@
     "corepack",
     "datasource",
     "depcruise",
+    "dtos",
     "fkey",
     "isready",
     "jsons",

@@ -7,6 +7,8 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+import { ErrorResponse } from '../dtos';
+
 @Catch()
 export class AppExceptionFilter implements ExceptionFilter {
   private logger: Logger = new Logger(AppExceptionFilter.name);
@@ -23,11 +25,12 @@ export class AppExceptionFilter implements ExceptionFilter {
       statusCode: status,
       timestamp: new Date().toISOString(),
     });
-
-    response.status(status).json({
+    const errorResponse: ErrorResponse = {
       path: request.url,
       statusCode: status,
       timestamp: new Date().toISOString(),
-    });
+    };
+
+    response.status(status).json(errorResponse);
   }
 }

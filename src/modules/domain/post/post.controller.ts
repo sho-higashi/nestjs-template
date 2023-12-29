@@ -11,13 +11,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
+import { ErrorResponse } from '../../../dtos';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
@@ -37,6 +41,8 @@ export class PostController {
 
   @Get()
   @ApiOkResponse({ type: ListPostResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
+  @ApiBadRequestResponse({ type: ErrorResponse })
   listPost(
     @CurrentUser() user: AuthUser,
     @Query() dto: ListPostDto,
@@ -46,6 +52,8 @@ export class PostController {
 
   @Get(':id')
   @ApiOkResponse({ type: PostResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
+  @ApiNotFoundResponse({ type: ErrorResponse })
   getPost(
     @CurrentUser() user: AuthUser,
     @Param('id') id: string,
@@ -56,6 +64,8 @@ export class PostController {
   @HttpCode(200)
   @ApiBody({ type: CreatePostDto })
   @ApiOkResponse({ type: PostResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
+  @ApiBadRequestResponse({ type: ErrorResponse })
   @Post()
   createPost(
     @CurrentUser() user: AuthUser,
@@ -67,6 +77,9 @@ export class PostController {
   @Put(':id')
   @ApiBody({ type: UpdatePostDto })
   @ApiOkResponse({ type: PostResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
+  @ApiNotFoundResponse({ type: ErrorResponse })
+  @ApiBadRequestResponse({ type: ErrorResponse })
   putPost(
     @CurrentUser() user: AuthUser,
     @Param('id') id: string,
@@ -78,6 +91,8 @@ export class PostController {
   @Delete()
   @ApiBody({ type: RemovePostsDto })
   @ApiOkResponse({ type: PostResponse })
+  @ApiForbiddenResponse({ type: ErrorResponse })
+  @ApiNotFoundResponse({ type: ErrorResponse })
   removePosts(
     @CurrentUser() user: AuthUser,
     @Body() dto: RemovePostsDto,

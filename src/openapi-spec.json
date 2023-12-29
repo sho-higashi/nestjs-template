@@ -9,6 +9,18 @@
         "required": ["title", "content"],
         "type": "object"
       },
+      "ErrorResponse": {
+        "properties": {
+          "path": { "example": "/users/me", "type": "string" },
+          "statusCode": { "example": "alice", "type": "number" },
+          "timestamp": {
+            "example": "2023-12-29T16:52:26.720Z",
+            "type": "string"
+          }
+        },
+        "required": ["path", "statusCode", "timestamp"],
+        "type": "object"
+      },
       "ListPostResponse": {
         "properties": {
           "pagination": { "$ref": "#/components/schemas/PaginationDto" },
@@ -110,6 +122,22 @@
               }
             },
             "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
@@ -163,6 +191,22 @@
               }
             },
             "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
@@ -184,6 +228,22 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             },
             "description": ""
@@ -209,6 +269,22 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             },
             "description": ""
@@ -243,6 +319,30 @@
               }
             },
             "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
@@ -258,6 +358,14 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             },
             "description": ""
@@ -282,6 +390,14 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             },
             "description": ""

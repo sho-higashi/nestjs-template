@@ -15,8 +15,6 @@ export class PostService {
   constructor(private readonly repo: PostRepository) {}
 
   async list(user: AuthUser, dto: ListPostDto): Promise<ListPostResponse> {
-    this.logger.log('list post');
-
     const where = { owner: user };
     const limit = dto.limit ?? 20;
     const offset = dto.offset ?? 0;
