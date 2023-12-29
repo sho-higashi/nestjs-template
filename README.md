@@ -87,7 +87,7 @@ returns
 }
 ```
 
-## develop dockerfile for production
+### develop dockerfile for production
 
 ```sh
 # build
@@ -95,4 +95,31 @@ docker build --progress=plain -f ./Dockerfile -t nestjs-template .
 
 # run on host port 3001
 docker run -p 3001:3000 --network host nestjs-template
+```
+
+## generate typed api client(openapi-typescript and openapi-fetch example)
+
+download openapi spec in json format
+
+```sh
+# replace http://localhost:3000 with deployed endpoint
+curl http://localhost:3000/api-document/api > openapi-spec.json
+```
+
+install library and generate type
+
+```sh
+npm i -D openapi-typescript
+npx openapi-typescript openapi-spec.json -o ./src/lib/api/v1.d.ts
+```
+
+typed api client is available using generated d.ts file and openapi-fetch
+see <https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch> for detail
+
+```typescript
+// src/client.ts
+import createClient from "openapi-fetch";
+import { paths } from "./lib/api/v1";
+
+const { GET, PUT } = createClient<paths>({ baseUrl: "http://localhost:3000/" });
 ```

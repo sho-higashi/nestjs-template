@@ -27,6 +27,7 @@
     "npmpackagejsonlint",
     "openapi",
     "pkey",
+    "redocly",
     "sonarjs"
   ]
 }

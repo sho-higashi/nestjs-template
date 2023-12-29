@@ -3,5 +3,6 @@
   "**/*.{js,ts,json,yml}": [
     "cspell -c ./cspell.json --no-must-find-files --no-progress",
     "prettier --write --plugin=prettier-plugin-sort-json"
-  ]
+  ],
+  "**/schema.prisma": ["prisma format"]
 }

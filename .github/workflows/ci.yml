@@ -28,6 +28,7 @@ jobs:
           pnpm lint
           pnpm lint:cspell
           pnpm lint:dep
+          pnpm lint:doc
           pnpm lint:package
           pnpm lint:type
           pnpm format:check
