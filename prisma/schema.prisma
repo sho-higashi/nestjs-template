@@ -16,10 +16,8 @@ model User {
   id        String    @id @default(uuid())
   name      String
   removedAt DateTime?
-
-  // meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   // relation
   posts Post[]
