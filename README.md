@@ -31,13 +31,19 @@ start app
 pnpm dev
 ```
 
+request to server from swagger ui(<http://localhost:3000/api-document> ) or other tools(e.g. postman)
+
+### prisma studio
+
+<http://localhost:5555/>
+
 ### api interface
 
-open api docs with html
+openapi docs is available as swagger ui
 
 <http://localhost:3000/api-document>
 
-download open api spec in json format
+download openapi spec in json format
 
 ```sh
 curl http://localhost:3000/api-document/api > openapi-spec.json
