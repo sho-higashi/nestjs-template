@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { randomUUID } from 'crypto';
 import { CLS_ID, ClsModule } from 'nestjs-cls';
 
-import { ResponseInterceptor } from './interceptors';
+import { AppExceptionFilter } from './filters';
+import { AppResponseInterceptor } from './interceptors';
 import { DomainModule } from './modules/domain/domain.module';
 import { InfraModule } from './modules/infra/infra.module';
 import { RepositoryModule } from './modules/repository/repository.module';
@@ -26,7 +27,11 @@ import { RepositoryModule } from './modules/repository/repository.module';
   providers: [
     {
       provide: APP_INTERCEPTOR,
-      useClass: ResponseInterceptor,
+      useClass: AppResponseInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppExceptionFilter,
     },
   ],
 })

@@ -1,0 +1,1 @@
+export const DOC_JWT_AUTH_NAME = 'DOC_JWT_AUTH_NAME';

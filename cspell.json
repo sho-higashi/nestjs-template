@@ -14,14 +14,16 @@
   "words": [
     "archi",
     "classpath",
+    "consts",
     "corepack",
-    "depcruise",
     "datasource",
+    "depcruise",
     "fkey",
     "isready",
     "jsons",
     "nestjs",
     "npmpackagejsonlint",
+    "openapi",
     "pkey",
     "sonarjs"
   ]

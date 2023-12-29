@@ -10,8 +10,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+import { DOC_JWT_AUTH_NAME } from '../../../consts';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
@@ -23,17 +29,14 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
 @ApiTags('posts')
+@ApiBearerAuth(DOC_JWT_AUTH_NAME)
 @UseGuards(UserGuard)
 @Controller('posts')
 export class PostController {
   constructor(private readonly service: PostService) {}
 
   @Get()
-  @ApiBody({ type: ListPostDto })
-  @ApiOkResponse({
-    description: 'List of posts',
-    type: ListPostResponse,
-  })
+  @ApiOkResponse({ type: ListPostResponse })
   listPost(
     @CurrentUser() user: AuthUser,
     @Query() dto: ListPostDto,
@@ -42,6 +45,7 @@ export class PostController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: PostResponse })
   getPost(
     @CurrentUser() user: AuthUser,
     @Param('id') id: string,
@@ -51,6 +55,7 @@ export class PostController {
 
   @HttpCode(200)
   @ApiBody({ type: CreatePostDto })
+  @ApiOkResponse({ type: PostResponse })
   @Post()
   createPost(
     @CurrentUser() user: AuthUser,
@@ -60,6 +65,8 @@ export class PostController {
   }
 
   @Put(':id')
+  @ApiBody({ type: UpdatePostDto })
+  @ApiOkResponse({ type: PostResponse })
   putPost(
     @CurrentUser() user: AuthUser,
     @Param('id') id: string,
@@ -69,6 +76,8 @@ export class PostController {
   }
 
   @Delete()
+  @ApiBody({ type: RemovePostsDto })
+  @ApiOkResponse({ type: PostResponse })
   removePosts(
     @CurrentUser() user: AuthUser,
     @Body() dto: RemovePostsDto,

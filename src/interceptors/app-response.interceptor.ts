@@ -8,8 +8,8 @@ import {
 import { Observable, tap } from 'rxjs';
 
 @Injectable()
-export class ResponseInterceptor implements NestInterceptor {
-  private logger: Logger = new Logger(ResponseInterceptor.name);
+export class AppResponseInterceptor implements NestInterceptor {
+  private logger: Logger = new Logger(AppResponseInterceptor.name);
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const { statusCode } = context.switchToHttp().getResponse();

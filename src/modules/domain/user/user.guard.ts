@@ -1,9 +1,4 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 
 import { UserRepository } from '../../repository/user.repository';
@@ -19,7 +14,7 @@ export class UserGuard implements CanActivate {
     const id = token;
     const user = id ? await this.repository.findById(id) : null;
     if (!user) {
-      throw new UnauthorizedException();
+      return false;
     }
 
     request.user = user;

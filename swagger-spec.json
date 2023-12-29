@@ -9,25 +9,6 @@
         "required": ["title", "content"],
         "type": "object"
       },
-      "ListPostDto": {
-        "properties": {
-          "limit": { "default": 20, "example": 20, "type": "number" },
-          "offset": { "default": 0, "example": 0, "type": "number" },
-          "order": {
-            "default": "desc",
-            "enum": ["asc", "desc"],
-            "example": "asc",
-            "type": "string"
-          },
-          "orderBy": {
-            "default": "createdAt",
-            "enum": ["createdAt", "updatedAt"],
-            "example": "createdAt",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "ListPostResponse": {
         "properties": {
           "pagination": { "$ref": "#/components/schemas/PaginationDto" },
@@ -81,6 +62,13 @@
         },
         "type": "object"
       }
+    },
+    "securitySchemes": {
+      "DOC_JWT_AUTH_NAME": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
     }
   },
   "info": {
@@ -103,7 +91,17 @@
           },
           "required": true
         },
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "get": {
@@ -146,14 +144,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/ListPostDto" }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "content": {
@@ -161,9 +151,10 @@
                 "schema": { "$ref": "#/components/schemas/ListPostResponse" }
               }
             },
-            "description": "List of posts"
+            "description": ""
           }
         },
+        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "post": {
@@ -177,7 +168,17 @@
           },
           "required": true
         },
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       }
     },
@@ -192,7 +193,17 @@
             "schema": { "type": "string" }
           }
         ],
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "put": {
@@ -213,7 +224,17 @@
           },
           "required": true
         },
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       }
     },
