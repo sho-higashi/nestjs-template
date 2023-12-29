@@ -17,6 +17,7 @@ import {
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -40,6 +41,7 @@ export class PostController {
   constructor(private readonly service: PostService) {}
 
   @Get()
+  @ApiOperation({ summary: "get requested user's posts" })
   @ApiOkResponse({ type: ListPostResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
   @ApiBadRequestResponse({ type: ErrorResponse })
@@ -51,6 +53,7 @@ export class PostController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: "get requested user's post" })
   @ApiOkResponse({ type: PostResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
   @ApiNotFoundResponse({ type: ErrorResponse })
@@ -62,6 +65,7 @@ export class PostController {
   }
 
   @HttpCode(200)
+  @ApiOperation({ summary: "create requested user's post" })
   @ApiBody({ type: CreatePostDto })
   @ApiOkResponse({ type: PostResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
@@ -75,6 +79,7 @@ export class PostController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: "update requested user's post" })
   @ApiBody({ type: UpdatePostDto })
   @ApiOkResponse({ type: PostResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
@@ -89,6 +94,7 @@ export class PostController {
   }
 
   @Delete()
+  @ApiOperation({ summary: "delete requested user's posts" })
   @ApiBody({ type: RemovePostsDto })
   @ApiOkResponse({ type: PostResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })

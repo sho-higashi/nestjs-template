@@ -4,6 +4,7 @@ import {
   ApiBody,
   ApiForbiddenResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -24,6 +25,7 @@ export class UserController {
   constructor(private readonly service: UserService) {}
 
   @Get('/me')
+  @ApiOperation({ summary: "get requested user's profile" })
   @ApiOkResponse({ type: UserResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
   getMe(@CurrentUser() user: AuthUser): UserResponse {
@@ -31,6 +33,7 @@ export class UserController {
   }
 
   @Patch('/me')
+  @ApiOperation({ summary: "update requested user's profile" })
   @ApiBody({ type: UpdateMeDto })
   @ApiOkResponse({ type: UserResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })

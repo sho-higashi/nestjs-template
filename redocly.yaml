@@ -6,4 +6,3 @@ extends:
 rules:
   no-empty-servers: off
   info-license: off
-  operation-summary: off

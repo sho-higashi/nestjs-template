@@ -144,6 +144,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "delete requested user's posts",
         "tags": ["posts"]
       },
       "get": {
@@ -213,6 +214,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "get requested user's posts",
         "tags": ["posts"]
       },
       "post": {
@@ -253,6 +255,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "create requested user's post",
         "tags": ["posts"]
       }
     },
@@ -294,6 +297,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "get requested user's post",
         "tags": ["posts"]
       },
       "put": {
@@ -349,6 +353,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "update requested user's post",
         "tags": ["posts"]
       }
     },
@@ -375,6 +380,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "get requested user's profile",
         "tags": ["users"]
       },
       "patch": {
@@ -407,6 +413,7 @@
           }
         },
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
+        "summary": "update requested user's profile",
         "tags": ["users"]
       }
     }
