@@ -1,9 +1,17 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePostDto {
-  @ApiPropertyOptional()
+  @ApiProperty({
+    description: 'new title of the post',
+    required: false,
+    type: String,
+  })
   title?: string | null;
 
-  @ApiPropertyOptional()
+  @ApiProperty({
+    description: 'new content of the post',
+    required: false,
+    type: String,
+  })
   content?: string | null;
 }

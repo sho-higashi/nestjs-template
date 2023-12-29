@@ -2,12 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ErrorResponse {
   @ApiProperty({
-    example: '/users/me',
+    example: '/request/path',
   })
   path!: string;
 
   @ApiProperty({
-    example: 'alice',
+    example: 400,
     type: Number,
   })
   statusCode!: number;

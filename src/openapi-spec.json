@@ -11,8 +11,8 @@
       },
       "ErrorResponse": {
         "properties": {
-          "path": { "example": "/users/me", "type": "string" },
-          "statusCode": { "example": "alice", "type": "number" },
+          "path": { "example": "/request/path", "type": "string" },
+          "statusCode": { "example": 400, "type": "number" },
           "timestamp": {
             "example": "2023-12-29T16:52:26.720Z",
             "type": "string"
@@ -47,7 +47,7 @@
           "content": { "type": "string" },
           "createdAt": { "format": "date-time", "type": "string" },
           "id": { "type": "string" },
-          "removedAt": { "type": "object" },
+          "removedAt": { "format": "date-time", "type": "string" },
           "title": { "type": "string" },
           "updatedAt": { "format": "date-time", "type": "string" }
         },
@@ -69,8 +69,11 @@
       },
       "UpdatePostDto": {
         "properties": {
-          "content": { "type": "object" },
-          "title": { "type": "object" }
+          "content": {
+            "description": "new content of the post",
+            "type": "string"
+          },
+          "title": { "description": "new title of the post", "type": "string" }
         },
         "type": "object"
       },

@@ -72,7 +72,7 @@
     "clean": "rm -rf dist",
     "commit": "git-cz",
     "commit:all": "git add . && pnpm commit",
-    "dev": "concurrently -n app,doc \"pnpm dev:app\" \"pnpm dev:doc\"",
+    "dev": "concurrently -n app,doc \"pnpm dev:app\" \"pnpm dev:doc\" \"pnpm prisma studio --browser=none\"",
     "dev:app": "nest start -b swc --watch",
     "dev:doc": "chokidar ./src/openapi-spec.json -c \"pnpm format:doc\"",
     "format": "prettier --write .*/*.{js,json} *.{js,ts,json,yml} ./**/*.{js,ts,json,yml} --plugin=prettier-plugin-sort-json",

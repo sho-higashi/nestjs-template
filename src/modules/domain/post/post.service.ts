@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { AuthUser } from '../../../interfaces';
 import { PostRepository } from '../../repository/post.repository';
@@ -47,6 +51,13 @@ export class PostService {
   }
 
   async create(user: AuthUser, dto: CreatePostDto): Promise<PostResponse> {
+    if (dto.title.length === 0) {
+      throw new BadRequestException('title is empty');
+    }
+    if (dto.content.length === 0) {
+      throw new BadRequestException('content is empty');
+    }
+
     return this.repo.create(dto, user);
   }
 

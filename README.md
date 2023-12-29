@@ -20,6 +20,7 @@ default ports
 ```txt
 app: 3000
 postgres: 5432
+prisma studio: 5555
 ```
 
 ## develop app

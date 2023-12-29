@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { Post } from '../../../infra/prisma/prisma';
 
@@ -15,12 +15,19 @@ export class PostResponse implements Post {
   @ApiProperty()
   content!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: Date,
+  })
   createdAt!: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: Date,
+  })
   updatedAt!: Date;
 
-  @ApiPropertyOptional()
+  @ApiProperty({
+    required: false,
+    type: Date,
+  })
   removedAt!: Date | null;
 }
