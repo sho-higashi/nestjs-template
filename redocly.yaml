@@ -1,8 +1,7 @@
 apis:
-  nestjs-template@v1:
+  nestjs-template:
     root: src/openapi-spec.json
 extends:
   - recommended
 rules:
   no-empty-servers: off
-  info-license: off

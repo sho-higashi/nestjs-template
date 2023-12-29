@@ -25,6 +25,7 @@ async function bootstrap() {
       const swaggerConfig = new DocumentBuilder()
         .setTitle('nestjs template')
         .setDescription('user and post api description')
+        .setLicense('MIT', 'https://opensource.org/licenses/MIT')
         .setVersion('1.0')
         .addBearerAuth(
           { bearerFormat: 'JWT', scheme: 'bearer', type: 'http' },
