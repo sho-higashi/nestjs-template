@@ -61,6 +61,14 @@
           "title": { "type": "object" }
         },
         "type": "object"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["id", "name"],
+        "type": "object"
       }
     },
     "securitySchemes": {
@@ -242,7 +250,16 @@
       "get": {
         "operationId": "UserController_getMe",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
         "tags": ["users"]
       },
       "patch": {
@@ -256,7 +273,16 @@
           },
           "required": true
         },
-        "responses": { "200": { "description": "" } },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
         "tags": ["users"]
       }
     }
