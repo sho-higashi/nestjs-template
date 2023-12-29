@@ -1,6 +1,12 @@
 import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
 import { AuthUser } from '../../../interfaces';
 import { UpdateMeDto } from './dto/update-user.dto';
 import { UserResponse } from './dto/user.dto';
@@ -9,6 +15,7 @@ import { UserGuard } from './user.guard';
 import { UserService } from './user.service';
 
 @ApiTags('users')
+@ApiBearerAuth(DOCUMENT_JWT_AUTH_NAME)
 @UseGuards(UserGuard)
 @Controller('users')
 export class UserController {

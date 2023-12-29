@@ -71,8 +71,10 @@ describe('PostController', () => {
 
     expect(resList.status).toBe(200);
     expect(resList.body).toEqual({
-      limit: 20,
-      offset: 0,
+      pagination: {
+        page: 1,
+        perPage: 20,
+      },
       posts: [
         expect.objectContaining({
           authorId: users.user1.id,

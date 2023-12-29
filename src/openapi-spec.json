@@ -51,7 +51,7 @@
       },
       "RemovePostsDto": { "properties": {}, "type": "object" },
       "UpdateMeDto": {
-        "properties": { "name": { "type": "string" } },
+        "properties": { "name": { "example": "bob", "type": "string" } },
         "required": ["name"],
         "type": "object"
       },
@@ -64,15 +64,18 @@
       },
       "UserResponse": {
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" }
+          "id": {
+            "example": "886e8222-9aff-4fd3-87dd-02344242a17c",
+            "type": "string"
+          },
+          "name": { "example": "alice", "type": "string" }
         },
         "required": ["id", "name"],
         "type": "object"
       }
     },
     "securitySchemes": {
-      "DOC_JWT_AUTH_NAME": {
+      "DOCUMENT_JWT_AUTH_NAME": {
         "bearerFormat": "JWT",
         "scheme": "bearer",
         "type": "http"
@@ -109,7 +112,7 @@
             "description": ""
           }
         },
-        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "get": {
@@ -162,7 +165,7 @@
             "description": ""
           }
         },
-        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "post": {
@@ -186,7 +189,7 @@
             "description": ""
           }
         },
-        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       }
     },
@@ -211,7 +214,7 @@
             "description": ""
           }
         },
-        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       },
       "put": {
@@ -242,7 +245,7 @@
             "description": ""
           }
         },
-        "security": [{ "DOC_JWT_AUTH_NAME": [] }],
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["posts"]
       }
     },
@@ -260,6 +263,7 @@
             "description": ""
           }
         },
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["users"]
       },
       "patch": {
@@ -283,6 +287,7 @@
             "description": ""
           }
         },
+        "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "tags": ["users"]
       }
     }
