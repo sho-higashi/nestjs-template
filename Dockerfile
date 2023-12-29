@@ -1,12 +1,12 @@
+# base
 FROM node:20-bullseye-slim AS base
-
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 COPY . /app
 WORKDIR /app
 
-# deps
+# installer
 FROM base AS installer
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
@@ -14,8 +14,6 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 FROM base AS builder
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm gen:db && pnpm build
-RUN ls -lsa /app/dist
-RUN ls -lsa /app/node_modules
 
 # runner
 FROM base AS runner
