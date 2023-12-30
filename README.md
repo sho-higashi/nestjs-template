@@ -31,7 +31,8 @@ start app
 pnpm dev
 ```
 
-request to server from swagger ui(<http://localhost:3000/api-document> ) or other tools(e.g. postman)
+- request to server from swagger ui(<http://localhost:3000/api-document> ) or other tools(e.g. postman)
+- to reset data, use "reset app" command in tasks.json
 
 ### prisma studio
 

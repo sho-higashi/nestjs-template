@@ -10,6 +10,7 @@ export const createRestRequest = (app: INestApplication) => {
   ): Promise<{
     body: TResponse;
     status: number;
+    text?: string;
   }> => {
     const requestTest = request(app.getHttpServer())[method](path);
     if (token) {

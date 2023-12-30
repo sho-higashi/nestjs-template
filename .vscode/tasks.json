@@ -23,6 +23,12 @@
       "label": "check all",
       "problemMatcher": [],
       "type": "shell"
+    },
+    {
+      "command": "pnpm install && docker compose up -d && pnpm gen:db && pnpm reset:db",
+      "label": "reset app",
+      "problemMatcher": [],
+      "type": "shell"
     }
   ],
   "version": "2.0.0"
