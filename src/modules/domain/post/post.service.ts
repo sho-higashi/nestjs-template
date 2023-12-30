@@ -5,6 +5,8 @@ import {
 } from '@nestjs/common';
 
 import { AuthUser } from '../../../interfaces';
+import { isEmptyString } from '../../../utils';
+import { Post } from '../../infra/prisma/prisma';
 import { PostRepository } from '../../repository/post.repository';
 import {
   CreatePostDto,
@@ -36,7 +38,7 @@ export class PostService {
         page: Math.floor(offset / limit) + 1,
         perPage: limit,
       },
-      posts,
+      posts: posts.map(this.convert),
       totalCount,
     };
   }
@@ -51,7 +53,9 @@ export class PostService {
   };
 
   async get(user: AuthUser, id: string): Promise<PostResponse> {
-    return this.#findByIdOrThrow(id, user);
+    const found = await this.#findByIdOrThrow(id, user);
+
+    return this.convert(found);
   }
 
   async create(user: AuthUser, dto: CreatePostDto): Promise<PostResponse> {
@@ -62,7 +66,9 @@ export class PostService {
       throw new BadRequestException('content is empty');
     }
 
-    return this.repo.create(dto, user);
+    const created = await this.repo.create(dto, user);
+
+    return this.convert(created);
   }
 
   async update(
@@ -70,9 +76,18 @@ export class PostService {
     id: string,
     dto: UpdatePostDto,
   ): Promise<PostResponse> {
+    if (isEmptyString(dto.title)) {
+      throw new BadRequestException('title is empty');
+    }
+    if (isEmptyString(dto.content)) {
+      throw new BadRequestException('content is empty');
+    }
+
     const found = await this.#findByIdOrThrow(id, user);
 
-    return this.repo.update(found, dto);
+    const updated = await this.repo.update(found, dto);
+
+    return this.convert(updated);
   }
 
   async removeMany(
@@ -88,5 +103,15 @@ export class PostService {
     await this.repo.removeMany(found);
 
     return { success: true };
+  }
+
+  convert(post: Post): PostResponse {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { authorId, removedAt, ...rest } = post;
+
+    return {
+      ...rest,
+      removed: !removedAt,
+    };
   }
 }

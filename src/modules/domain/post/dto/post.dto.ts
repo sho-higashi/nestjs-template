@@ -2,12 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Post } from '../../../infra/prisma/prisma';
 
-export class PostResponse implements Post {
+export class PostResponse implements Omit<Post, 'authorId' | 'removedAt'> {
   @ApiProperty()
   id!: string;
-
-  @ApiProperty()
-  authorId!: string;
 
   @ApiProperty()
   title!: string;
@@ -15,19 +12,12 @@ export class PostResponse implements Post {
   @ApiProperty()
   content!: string;
 
-  @ApiProperty({
-    type: Date,
-  })
+  @ApiProperty({ type: Date })
   createdAt!: Date;
 
-  @ApiProperty({
-    type: Date,
-  })
+  @ApiProperty({ type: Date })
   updatedAt!: Date;
 
-  @ApiProperty({
-    required: false,
-    type: Date,
-  })
-  removedAt!: Date | null;
+  @ApiProperty({ type: Boolean })
+  removed!: boolean;
 }

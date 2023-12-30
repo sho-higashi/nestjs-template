@@ -43,21 +43,20 @@
       },
       "PostResponse": {
         "properties": {
-          "authorId": { "type": "string" },
           "content": { "type": "string" },
           "createdAt": { "format": "date-time", "type": "string" },
           "id": { "type": "string" },
-          "removedAt": { "format": "date-time", "type": "string" },
+          "removed": { "type": "boolean" },
           "title": { "type": "string" },
           "updatedAt": { "format": "date-time", "type": "string" }
         },
         "required": [
           "id",
-          "authorId",
           "title",
           "content",
           "createdAt",
-          "updatedAt"
+          "updatedAt",
+          "removed"
         ],
         "type": "object"
       },
