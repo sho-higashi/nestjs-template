@@ -6,11 +6,15 @@ import {
 
 import { AuthUser } from '../../../interfaces';
 import { PostRepository } from '../../repository/post.repository';
-import { CreatePostDto } from './dto/create-post.dto';
-import { ListPostDto, ListPostResponse } from './dto/list-post.dto';
-import { PostResponse } from './dto/post.dto';
-import { RemovePostsDto, RemovePostsResponse } from './dto/remove-posts.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import {
+  CreatePostDto,
+  ListPostDto,
+  ListPostResponse,
+  PostResponse,
+  RemovePostsDto,
+  RemovePostsResponse,
+  UpdatePostDto,
+} from './dto';
 
 @Injectable()
 export class PostService {

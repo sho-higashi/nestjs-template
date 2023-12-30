@@ -26,11 +26,15 @@ import { ErrorResponse } from '../../../dtos';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
-import { CreatePostDto } from './dto/create-post.dto';
-import { ListPostDto, ListPostResponse } from './dto/list-post.dto';
-import { PostResponse } from './dto/post.dto';
-import { RemovePostsDto, RemovePostsResponse } from './dto/remove-posts.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import {
+  CreatePostDto,
+  ListPostDto,
+  ListPostResponse,
+  PostResponse,
+  RemovePostsDto,
+  RemovePostsResponse,
+  UpdatePostDto,
+} from './dto';
 import { PostService } from './post.service';
 
 @ApiTags('posts')

@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 
-import { UpdateMeDto } from '../../src/modules/domain/user/dto/update-user.dto';
-import { UserResponse } from '../../src/modules/domain/user/dto/user.dto';
+import { UpdateMeDto, UserResponse } from '../../src/modules/domain/user/dto';
 import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
 import {
   bootstrap,
@@ -34,36 +33,65 @@ describe('UserController', () => {
     await cleanup(prisma, { keepUsers: false });
   });
 
-  it('/users/me (GET)', async () => {
-    const res = await request<undefined, UserResponse>(
-      '/users/me',
-      'get',
-      undefined,
-      users.user1.token,
-    );
+  describe('/users/me (GET)', () => {
+    it('OK: valid user', async () => {
+      const res = await request<undefined, UserResponse>(
+        '/users/me',
+        'get',
+        undefined,
+        users.user1.token,
+      );
 
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual(
-      expect.objectContaining({
-        id: users.user1.id,
-      }),
-    );
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({ id: users.user1.id, name: 'user1' });
+    });
+    it('NG: removed user', async () => {
+      const res = await request<undefined, UserResponse>(
+        '/users/me',
+        'get',
+        undefined,
+        users.removedUser.token,
+      );
+
+      expect(res.status).toBe(403);
+      expect(res.body).toEqual({
+        path: '/users/me',
+        statusCode: 403,
+        timestamp: expect.any(String),
+      });
+    });
   });
 
-  it('/users/me (PATCH)', async () => {
-    const res = await request<UpdateMeDto, UserResponse>(
-      '/users/me',
-      'patch',
-      { name: 'new name' },
-      users.user1.token,
-    );
+  describe('/users/me (PATCH)', () => {
+    it('OK', async () => {
+      const res = await request<UpdateMeDto, UserResponse>(
+        '/users/me',
+        'patch',
+        { name: 'new name' },
+        users.user1.token,
+      );
 
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual(
-      expect.objectContaining({
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({
         id: users.user1.id,
         name: 'new name',
-      }),
-    );
+      });
+    });
+
+    it('NG: invalid user', async () => {
+      const res = await request<UpdateMeDto, UserResponse>(
+        '/users/me',
+        'patch',
+        { name: 'new name' },
+        'invalid token',
+      );
+
+      expect(res.status).toBe(403);
+      expect(res.body).toEqual({
+        path: '/users/me',
+        statusCode: 403,
+        timestamp: expect.any(String),
+      });
+    });
   });
 });

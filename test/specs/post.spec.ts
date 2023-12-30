@@ -1,16 +1,14 @@
 import { INestApplication } from '@nestjs/common';
 
-import { CreatePostDto } from '../../src/modules/domain/post/dto/create-post.dto';
 import {
+  CreatePostDto,
   ListPostDto,
   ListPostResponse,
-} from '../../src/modules/domain/post/dto/list-post.dto';
-import { PostResponse } from '../../src/modules/domain/post/dto/post.dto';
-import {
+  PostResponse,
   RemovePostsDto,
   RemovePostsResponse,
-} from '../../src/modules/domain/post/dto/remove-posts.dto';
-import { UpdatePostDto } from '../../src/modules/domain/post/dto/update-post.dto';
+  UpdatePostDto,
+} from '../../src/modules/domain/post/dto';
 import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
 import {
   bootstrap,

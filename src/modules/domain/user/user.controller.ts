@@ -11,8 +11,7 @@ import {
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
 import { ErrorResponse } from '../../../dtos';
 import { AuthUser } from '../../../interfaces';
-import { UpdateMeDto } from './dto/update-user.dto';
-import { UserResponse } from './dto/user.dto';
+import { UpdateMeDto, UserResponse } from './dto';
 import { CurrentUser } from './user.decorator';
 import { UserGuard } from './user.guard';
 import { UserService } from './user.service';
@@ -29,7 +28,7 @@ export class UserController {
   @ApiOkResponse({ type: UserResponse })
   @ApiForbiddenResponse({ type: ErrorResponse })
   getMe(@CurrentUser() user: AuthUser): UserResponse {
-    return user;
+    return this.service.convert(user);
   }
 
   @Patch('/me')
