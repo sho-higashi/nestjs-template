@@ -1,3 +1,4 @@
+import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import fs from 'fs';
@@ -5,9 +6,28 @@ import { join } from 'path';
 
 import { AppModule } from './app.module';
 import { DOCUMENT_JWT_AUTH_NAME, SCHEMA_FILE_NAME } from './consts';
+import { AppConfigService } from './modules/infra/app-config/app-config.service';
 import { AppLoggingService } from './modules/infra/app-logging/app-logging.service';
-import { AppConfigService } from './modules/infra/config/app-config.service';
 import { isEnvForDev } from './utils';
+
+const setupOpenapiDocument = (app: INestApplication) => {
+  const openapiConfig = new DocumentBuilder()
+    .setTitle('nestjs template')
+    .setDescription('user and post api description')
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
+    .setVersion('1.0')
+    .addBearerAuth(
+      { bearerFormat: 'JWT', scheme: 'bearer', type: 'http' },
+      DOCUMENT_JWT_AUTH_NAME,
+    )
+    .build();
+  const document = SwaggerModule.createDocument(app, openapiConfig);
+  fs.writeFileSync(
+    join(process.cwd(), `./src/${SCHEMA_FILE_NAME}`),
+    JSON.stringify(document),
+  );
+  SwaggerModule.setup('api-document', app, document);
+};
 
 async function bootstrap() {
   try {
@@ -19,25 +39,10 @@ async function bootstrap() {
     /** logging */
     app.useLogger(app.get(AppLoggingService));
 
-    /** swagger */
+    /** openapi */
     const env = config.get('ENV');
     if (isEnvForDev(env)) {
-      const swaggerConfig = new DocumentBuilder()
-        .setTitle('nestjs template')
-        .setDescription('user and post api description')
-        .setLicense('MIT', 'https://opensource.org/licenses/MIT')
-        .setVersion('1.0')
-        .addBearerAuth(
-          { bearerFormat: 'JWT', scheme: 'bearer', type: 'http' },
-          DOCUMENT_JWT_AUTH_NAME,
-        )
-        .build();
-      const document = SwaggerModule.createDocument(app, swaggerConfig);
-      fs.writeFileSync(
-        join(process.cwd(), `./src/${SCHEMA_FILE_NAME}`),
-        JSON.stringify(document),
-      );
-      SwaggerModule.setup('api-document', app, document);
+      setupOpenapiDocument(app);
     }
 
     app.enableShutdownHooks();

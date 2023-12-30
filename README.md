@@ -1,7 +1,7 @@
-a template app for nestjs
+a template app for nestjs using
 
 - nestjs
-- app
+- openapi
 - prisma
 - postgres
 
