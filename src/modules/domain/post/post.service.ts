@@ -111,7 +111,7 @@ export class PostService {
 
     return {
       ...rest,
-      removed: !removedAt,
+      removed: !!removedAt,
     };
   }
 }

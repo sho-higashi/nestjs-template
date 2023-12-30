@@ -43,12 +43,14 @@ export class PostRepository {
   }
 
   async findById(id: string, owner: User) {
-    return this.prisma.post.findUnique({ where: { authorId: owner.id, id } });
+    return this.prisma.post.findUnique({
+      where: { authorId: owner.id, id, removedAt: null },
+    });
   }
 
   async findByIds(ids: string[], owner: User) {
     return this.prisma.post.findMany({
-      where: { authorId: owner.id, id: { in: ids } },
+      where: { authorId: owner.id, id: { in: ids }, removedAt: null },
     });
   }
 
