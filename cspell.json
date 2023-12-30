@@ -6,6 +6,7 @@
     "coverage",
     "dist",
     "node_modules",
+    "./.vscode/extensions.json",
     "./cspell.json",
     "./pnpm-lock.yaml",
     "./tsconfig.build.tsbuildinfo"
