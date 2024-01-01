@@ -22,19 +22,18 @@ import {
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
-import { ErrorResponse } from '../../../dtos';
+import { ErrorResponse } from '../../../dto';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
 import {
   CreatePostDto,
   ListPostDto,
-  ListPostResponse,
-  PostResponse,
   RemovePostsDto,
   RemovePostsResponse,
   UpdatePostDto,
 } from './dto';
+import { ListPostResponse, PostResponse } from './entities';
 import { PostService } from './post.service';
 
 @ApiTags('posts')

@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { User } from '../../infra/prisma/prisma';
 import { UserRepository } from '../../repository/user.repository';
-import { UpdateMeDto, UserResponse } from './dto';
+import { UpdateMeDto } from './dto';
+import { UserResponse } from './entities';
 
 @Injectable()
 export class UserService {

@@ -9,9 +9,10 @@ import {
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
-import { ErrorResponse } from '../../../dtos';
+import { ErrorResponse } from '../../../dto';
 import { AuthUser } from '../../../interfaces';
-import { UpdateMeDto, UserResponse } from './dto';
+import { UpdateMeDto } from './dto';
+import { UserResponse } from './entities';
 import { CurrentUser } from './user.decorator';
 import { UserGuard } from './user.guard';
 import { UserService } from './user.service';

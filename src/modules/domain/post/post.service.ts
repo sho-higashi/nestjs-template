@@ -11,12 +11,11 @@ import { PostRepository } from '../../repository/post.repository';
 import {
   CreatePostDto,
   ListPostDto,
-  ListPostResponse,
-  PostResponse,
   RemovePostsDto,
   RemovePostsResponse,
   UpdatePostDto,
 } from './dto';
+import { ListPostResponse, PostResponse } from './entities';
 
 @Injectable()
 export class PostService {
