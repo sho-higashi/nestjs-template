@@ -28,7 +28,7 @@ export class AppLoggingService implements LoggerService {
     const msg = {
       context,
       level,
-      message,
+      message: JSON.stringify(message),
       params,
       requestId: this.#requestId(),
       time,

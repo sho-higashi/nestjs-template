@@ -1,14 +1,18 @@
 {
   "components": {
     "schemas": {
+      "AccountUser": { "properties": {}, "type": "object" },
+      "CreateAccountUserDto": { "properties": {}, "type": "object" },
+      "CreateCoffeeDto": { "properties": {}, "type": "object" },
       "CreatePostDto": {
         "properties": {
           "content": { "type": "string" },
           "title": { "description": "The title of the post.", "type": "string" }
         },
-        "required": ["title", "content"],
+        "required": ["content", "title"],
         "type": "object"
       },
+      "CreateTagDto": { "properties": {}, "type": "object" },
       "ErrorResponse": {
         "properties": {
           "path": { "example": "/request/path", "type": "string" },
@@ -30,7 +34,7 @@
           },
           "totalCount": { "type": "number" }
         },
-        "required": ["posts", "totalCount", "pagination"],
+        "required": ["pagination", "posts", "totalCount"],
         "type": "object"
       },
       "PaginationDto": {
@@ -39,6 +43,11 @@
           "perPage": { "type": "number" }
         },
         "required": ["page", "perPage"],
+        "type": "object"
+      },
+      "PaymentWebhookResponse": {
+        "properties": { "success": { "type": "boolean" } },
+        "required": ["success"],
         "type": "object"
       },
       "PostResponse": {
@@ -51,16 +60,18 @@
           "updatedAt": { "format": "date-time", "type": "string" }
         },
         "required": [
-          "id",
-          "title",
           "content",
           "createdAt",
-          "updatedAt",
-          "removed"
+          "id",
+          "removed",
+          "title",
+          "updatedAt"
         ],
         "type": "object"
       },
       "RemovePostsDto": { "properties": {}, "type": "object" },
+      "UpdateAccountUserDto": { "properties": {}, "type": "object" },
+      "UpdateCoffeeDto": { "properties": {}, "type": "object" },
       "UpdateMeDto": {
         "properties": { "name": { "example": "bob", "type": "string" } },
         "required": ["name"],
@@ -76,6 +87,7 @@
         },
         "type": "object"
       },
+      "UpdateTagDto": { "properties": {}, "type": "object" },
       "UserResponse": {
         "properties": {
           "id": {
@@ -105,6 +117,403 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/account-users": {
+      "get": {
+        "operationId": "AccountUsersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/AccountUser" },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get posts",
+        "tags": ["account-users"]
+      },
+      "post": {
+        "operationId": "AccountUsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAccountUserDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccountUser" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "create post",
+        "tags": ["account-users"]
+      }
+    },
+    "/account-users/{id}": {
+      "delete": {
+        "operationId": "AccountUsersController_remove",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccountUser" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "delete post",
+        "tags": ["account-users"]
+      },
+      "get": {
+        "operationId": "AccountUsersController_findOne",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccountUser" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get post",
+        "tags": ["account-users"]
+      },
+      "patch": {
+        "operationId": "AccountUsersController_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAccountUserDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccountUser" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "update post",
+        "tags": ["account-users"]
+      }
+    },
+    "/coffees": {
+      "get": {
+        "operationId": "CoffeesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get coffees",
+        "tags": ["posts"]
+      },
+      "post": {
+        "operationId": "CoffeesController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCoffeeDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "create coffee",
+        "tags": ["posts"]
+      }
+    },
+    "/coffees/{id}": {
+      "delete": {
+        "operationId": "CoffeesController_remove",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "delete coffee",
+        "tags": ["posts"]
+      },
+      "get": {
+        "operationId": "CoffeesController_findOne",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get coffee",
+        "tags": ["posts"]
+      },
+      "patch": {
+        "operationId": "CoffeesController_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateCoffeeDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "update coffee",
+        "tags": ["posts"]
+      }
+    },
+    "/fibonacci": {
+      "get": {
+        "operationId": "FibonacciController_fibonacci",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "n",
+            "required": true,
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get coffee",
+        "tags": ["fibonacci"]
+      }
+    },
+    "/i18n/greeting": {
+      "get": {
+        "operationId": "I18nController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "receive greeting, usage\n      curl -H 'accept-language: pl' 'localhost:3000/i18n/greeting'\n      curl -H 'accept-language: en' 'localhost:3000/i18n/greeting'",
+        "tags": ["i18n"]
+      }
+    },
+    "/payments-webhook": {
+      "get": {
+        "operationId": "PaymentsWebhookController_webhook",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentWebhookResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "webhook for payment"
+      }
+    },
     "/posts": {
       "delete": {
         "operationId": "PostController_removePosts",
@@ -355,6 +764,152 @@
         "security": [{ "DOCUMENT_JWT_AUTH_NAME": [] }],
         "summary": "update requested user's post",
         "tags": ["posts"]
+      }
+    },
+    "/tags": {
+      "get": {
+        "operationId": "TagsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "TBW"
+      },
+      "post": {
+        "operationId": "TagsController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTagDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "TBW"
+      }
+    },
+    "/tags/{id}": {
+      "delete": {
+        "operationId": "TagsController_remove",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "TBW"
+      },
+      "get": {
+        "operationId": "TagsController_findOne",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "TBW"
+      },
+      "patch": {
+        "operationId": "TagsController_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTagDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "TBW"
       }
     },
     "/users/me": {

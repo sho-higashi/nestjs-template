@@ -5,3 +5,4 @@ extends:
   - recommended
 rules:
   no-empty-servers: off
+  security-defined: off

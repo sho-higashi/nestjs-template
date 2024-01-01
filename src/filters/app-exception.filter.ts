@@ -14,23 +14,33 @@ export class AppExceptionFilter implements ExceptionFilter {
   private logger: Logger = new Logger(AppExceptionFilter.name);
 
   catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    const status = exception.getStatus();
+    try {
+      const ctx = host.switchToHttp();
+      const response = ctx.getResponse<Response>();
+      const request = ctx.getRequest<Request>();
+      const status = exception.getStatus();
 
-    this.logger.error({
-      message: exception.message,
-      path: request.url,
-      statusCode: status,
-      timestamp: new Date().toISOString(),
-    });
-    const errorResponse: ErrorResponse = {
-      path: request.url,
-      statusCode: status,
-      timestamp: new Date().toISOString(),
-    };
+      this.logger.error({
+        message: exception.message,
+        path: request.url,
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+      });
+      const errorResponse: ErrorResponse = {
+        path: request.url,
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+      };
 
-    response.status(status).json(errorResponse);
+      response.status(status).json(errorResponse);
+    } catch (e) {
+      const ctx = host.switchToHttp();
+      const response = ctx.getResponse<Response>();
+      response.status(500).json({
+        message: 'Internal Server Error',
+        path: '',
+        statusCode: 500,
+      });
+    }
   }
 }

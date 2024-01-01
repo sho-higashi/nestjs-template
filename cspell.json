@@ -18,17 +18,21 @@
     "classpath",
     "consts",
     "corepack",
+    "Czesc",
     "datasource",
     "depcruise",
     "dtos",
     "fkey",
     "isready",
+    "istnieje",
     "jsons",
+    "Kamil",
     "nestjs",
     "npmpackagejsonlint",
     "openapi",
     "pkey",
     "redocly",
-    "sonarjs"
+    "sonarjs",
+    "Uzytkownik"
   ]
 }

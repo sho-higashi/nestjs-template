@@ -9,6 +9,7 @@ import {
   createRestRequest,
   NestApp,
   RestRequest,
+  shutdown,
 } from '../utils';
 
 describe('UserController', () => {
@@ -31,7 +32,7 @@ describe('UserController', () => {
   });
 
   afterAll(async () => {
-    await cleanup(prisma, { keepUsers: false });
+    await shutdown(app);
   });
 
   describe('/users/me (GET)', () => {

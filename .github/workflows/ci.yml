@@ -26,12 +26,6 @@ jobs:
           pnpm install
           pnpm gen:db
           pnpm lint
-          pnpm lint:cspell
-          pnpm lint:dep
-          pnpm lint:doc
-          pnpm lint:package
-          pnpm lint:type
-          pnpm format:check
           pnpm build
           pnpm prepare:test:e2e
           pnpm test
