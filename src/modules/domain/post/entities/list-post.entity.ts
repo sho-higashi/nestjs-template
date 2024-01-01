@@ -11,6 +11,9 @@ export class PaginationDto {
 }
 
 export class ListPostResponse {
+  @ApiProperty()
+  pagination!: PaginationDto;
+
   @ApiProperty({
     type: [PostResponse],
   })
@@ -18,7 +21,4 @@ export class ListPostResponse {
 
   @ApiProperty()
   totalCount!: number;
-
-  @ApiProperty()
-  pagination!: PaginationDto;
 }

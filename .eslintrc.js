@@ -47,6 +47,15 @@ const config = {
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/member-ordering': [
+      'error',
+      {
+        default: {
+          memberTypes: ['field'],
+          order: 'alphabetically',
+        },
+      },
+    ],
     '@typescript-eslint/no-unused-vars': 'error',
     'import/first': 'error',
     'import/newline-after-import': 'error',
