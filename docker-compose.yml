@@ -10,3 +10,18 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=cKXWeJTY
       - POSTGRES_DB=nestjs_template
+  read-db:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_DATABASE="vf-read-db"
+  event-store:
+    image: mongo:6.0.4
+    ports:
+      - 27018:27017
+    environment:
+      - MONGODB_DATABASE="vf-event-store"
+    command: mongod --replSet vf-event-store-repl-set
+    volumes:
+      - ./scripts/event-store-mongoinit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro

@@ -2,7 +2,9 @@ import { z } from 'zod';
 
 const environmentSchema = z.object({
   DATABASE_URL: z.string(),
+  DATA_SOURCE_DATABASE_URL: z.string(),
   ENV: z.enum(['local', 'production', 'development', 'staging', 'test']),
+  MONGO_DATABASE_URL: z.string(),
   PORT: z
     .string()
     .nullish()

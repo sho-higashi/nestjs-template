@@ -1,6 +1,8 @@
 {
   "components": {
     "schemas": {
+      "Alarm": { "properties": {}, "type": "object" },
+      "CreateAlarmDto": { "properties": {}, "type": "object" },
       "CreatePostDto": {
         "properties": {
           "content": { "type": "string" },
@@ -105,6 +107,67 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/alarms": {
+      "get": {
+        "operationId": "AlarmsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/Alarm" },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "get alarms",
+        "tags": ["alarms"]
+      },
+      "post": {
+        "operationId": "AlarmsController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAlarmDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Alarm" }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "create alarm",
+        "tags": ["alarms"]
+      }
+    },
     "/posts": {
       "delete": {
         "operationId": "PostController_removePosts",

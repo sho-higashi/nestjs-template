@@ -39,3 +39,37 @@ model Post {
   // relation
   author User @relation(fields: [authorId], references: [id])
 }
+
+enum AlarmSeverity {
+  critical
+  high
+  medium
+  low
+}
+
+model Alarm {
+  id             String        @id @default(uuid())
+  name           String
+  severity       AlarmSeverity
+  isAcknowledged Boolean
+  triggeredAt    DateTime
+
+  // meta
+  createdAt DateTime @default(now())
+
+  // relation
+  AlarmItem AlarmItem[]
+}
+
+model AlarmItem {
+  id      String @id @default(uuid())
+  alarmId String
+  name    String
+  type    String
+
+  // meta
+  createdAt DateTime @default(now())
+
+  // relation
+  alarm Alarm @relation(fields: [alarmId], references: [id])
+}

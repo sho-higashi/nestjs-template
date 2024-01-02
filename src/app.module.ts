@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { CqrsModule } from '@nestjs/cqrs';
 import { randomUUID } from 'crypto';
 import { CLS_ID, ClsModule } from 'nestjs-cls';
 
@@ -9,9 +10,11 @@ import { ApiDocumentModule } from './modules/api-document/api-document.module';
 import { DomainModule } from './modules/domain/domain.module';
 import { InfraModule } from './modules/infra/infra.module';
 import { RepositoryModule } from './modules/repository/repository.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
+    CqrsModule.forRoot(),
     InfraModule,
     RepositoryModule,
     DomainModule,
@@ -25,6 +28,7 @@ import { RepositoryModule } from './modules/repository/repository.module';
         },
       },
     }),
+    SharedModule,
   ],
   providers: [
     {
