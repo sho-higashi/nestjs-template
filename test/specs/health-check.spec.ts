@@ -1,7 +1,13 @@
 import { INestApplication } from '@nestjs/common';
 
 import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
-import { bootstrap, cleanup, createRestRequest, RestRequest } from '../utils';
+import {
+  bootstrap,
+  cleanup,
+  createRestRequest,
+  RestRequest,
+  shutdown,
+} from '../utils';
 
 describe('HealthCheckController', () => {
   let app: INestApplication;
@@ -21,7 +27,7 @@ describe('HealthCheckController', () => {
   });
 
   afterAll(async () => {
-    await cleanup(prisma, { keepUsers: false });
+    await shutdown(app);
   });
 
   it('.well-known/health (GET)', async () => {

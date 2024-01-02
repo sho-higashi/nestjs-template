@@ -18,6 +18,7 @@ import {
   createRestRequest,
   NestApp,
   RestRequest,
+  shutdown,
 } from '../utils';
 
 describe('PostController', () => {
@@ -73,7 +74,7 @@ describe('PostController', () => {
   });
 
   afterAll(async () => {
-    await cleanup(prisma, { keepUsers: false });
+    await shutdown(app);
   });
 
   it("OK: list, get only author's posts", async () => {

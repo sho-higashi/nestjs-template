@@ -6,7 +6,7 @@
           "content": { "type": "string" },
           "title": { "description": "The title of the post.", "type": "string" }
         },
-        "required": ["title", "content"],
+        "required": ["content", "title"],
         "type": "object"
       },
       "ErrorResponse": {
@@ -30,7 +30,7 @@
           },
           "totalCount": { "type": "number" }
         },
-        "required": ["posts", "totalCount", "pagination"],
+        "required": ["pagination", "posts", "totalCount"],
         "type": "object"
       },
       "PaginationDto": {
@@ -51,12 +51,12 @@
           "updatedAt": { "format": "date-time", "type": "string" }
         },
         "required": [
-          "id",
-          "title",
           "content",
           "createdAt",
-          "updatedAt",
-          "removed"
+          "id",
+          "removed",
+          "title",
+          "updatedAt"
         ],
         "type": "object"
       },
