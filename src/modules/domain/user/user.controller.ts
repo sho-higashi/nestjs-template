@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
-import { ErrorResponse } from '../../../dto';
+import { ErrorResponse } from '../../../entities';
 import { AuthUser } from '../../../interfaces';
 import { UpdateMeDto } from './dto';
 import { UserResponse } from './entities';

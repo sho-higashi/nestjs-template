@@ -22,7 +22,7 @@ import {
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
-import { ErrorResponse } from '../../../dto';
+import { ErrorResponse } from '../../../entities';
 import { AuthUser } from '../../../interfaces';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
