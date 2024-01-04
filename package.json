@@ -58,7 +58,8 @@
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "zx": "7.2.3"
   },
   "engines": {
     "node": "20.x",
@@ -85,6 +86,7 @@
     "gen:db": "prisma generate",
     "lint": "concurrently \"npm:lint:*\"",
     "lint:cspell": "cspell -c cspell.json \"**\" \".*\" \".*/**\" --no-progress",
+    "lint:db": "zx ./scripts/lint-db.mjs",
     "lint:dep": "depcruise --config .dependency-cruiser.js src",
     "lint:doc": "redocly lint --config redocly.yaml src/openapi-spec.json",
     "lint:eslint": "eslint \"{prisma,src,test}/**/*.ts\" \"./**/*.{js,json}\"",
