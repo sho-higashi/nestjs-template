@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { RepositoryModule } from './repository/repository.module';
 
 @Module({
+  exports: [RepositoryModule],
   imports: [PrismaModule, HealthCheckModule, RepositoryModule],
 })
 export class InfrastructureModule {}
