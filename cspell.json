@@ -9,6 +9,7 @@
     "./.vscode/extensions.json",
     "./cspell.json",
     "./pnpm-lock.yaml",
+    "./prisma/schema-copy-for-lint-db.prisma",
     "./tsconfig.build.tsbuildinfo"
   ],
   "language": "en",
@@ -22,6 +23,7 @@
     "depcruise",
     "dtos",
     "fkey",
+    "higashi",
     "isready",
     "jsons",
     "nestjs",
