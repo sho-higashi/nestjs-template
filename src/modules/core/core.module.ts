@@ -1,8 +1,9 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { validate } from '../../../utils';
+import { validate } from '../../utils';
 import { AppConfigService } from './app-config.service';
+import { AppLoggingService } from './app-logging.service';
 
 @Global()
 @Module({
@@ -13,6 +14,6 @@ import { AppConfigService } from './app-config.service';
       validate,
     }),
   ],
-  providers: [AppConfigService],
+  providers: [AppConfigService, AppLoggingService],
 })
-export class AppConfigModule {}
+export class CoreModule {}

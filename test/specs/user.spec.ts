@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 
-import { UpdateMeDto } from '../../src/modules/domain/user/dto';
-import { UserResponse } from '../../src/modules/domain/user/entities';
-import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+import { UpdateMeDto } from '../../src/modules/application/user/dto';
+import { UserResponse } from '../../src/modules/application/user/entities';
+import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import {
   bootstrap,
   cleanup,

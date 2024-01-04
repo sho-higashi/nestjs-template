@@ -3,19 +3,19 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { randomUUID } from 'crypto';
 import { CLS_ID, ClsModule } from 'nestjs-cls';
 
-import { AppExceptionFilter } from './filters';
-import { AppResponseInterceptor } from './interceptors';
-import { ApiDocumentModule } from './modules/api-document/api-document.module';
-import { DomainModule } from './modules/domain/domain.module';
-import { InfraModule } from './modules/infra/infra.module';
-import { RepositoryModule } from './modules/repository/repository.module';
+import { ApplicationModule } from './modules/application/domain.module';
+import {
+  AppExceptionFilter,
+  AppResponseInterceptor,
+  CoreModule,
+} from './modules/core';
+import { InfrastructureModule } from './modules/infrastructure/infrastructure.module';
 
 @Module({
   imports: [
-    InfraModule,
-    RepositoryModule,
-    DomainModule,
-    ApiDocumentModule,
+    CoreModule,
+    InfrastructureModule,
+    ApplicationModule,
     ClsModule.forRoot({
       global: true,
       middleware: {

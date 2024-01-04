@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { User } from '../../infra/prisma/prisma';
-import { UserRepository } from '../../repository/user.repository';
+import { User } from '../../infrastructure/prisma/prisma';
+import { UserRepository } from '../../infrastructure/repository/user.repository';
 import { UpdateMeDto } from './dto';
 import { UserResponse } from './entities';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Post, Prisma, User } from '../infra/prisma/prisma';
-import { PrismaService } from '../infra/prisma/prisma.service';
+import { Post, Prisma, User } from '../prisma/prisma';
+import { PrismaService } from '../prisma/prisma.service';
 
 type Where = {
   owner: User;

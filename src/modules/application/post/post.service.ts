@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { AuthUser } from '../../../interfaces';
 import { isEmptyString } from '../../../utils';
-import { Post } from '../../infra/prisma/prisma';
-import { PostRepository } from '../../repository/post.repository';
+import { Post } from '../../infrastructure/prisma/prisma';
+import { PostRepository } from '../../infrastructure/repository/post.repository';
+import { AuthUser } from '../../interfaces';
 import {
   CreatePostDto,
   ListPostDto,

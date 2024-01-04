@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Post } from '../../../infra/prisma/prisma';
+import { Post } from '../../../infrastructure/prisma/prisma';
 
 export class PostResponse implements Omit<Post, 'authorId' | 'removedAt'> {
   @ApiProperty()

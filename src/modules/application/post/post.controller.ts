@@ -22,8 +22,8 @@ import {
 } from '@nestjs/swagger';
 
 import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
-import { ErrorResponse } from '../../../entities';
-import { AuthUser } from '../../../interfaces';
+import { AuthUser } from '../../interfaces';
+import { ErrorResponse } from '../shared';
 import { CurrentUser } from '../user/user.decorator';
 import { UserGuard } from '../user/user.guard';
 import {

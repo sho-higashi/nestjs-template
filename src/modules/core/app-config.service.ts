@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService, Path, PathValue } from '@nestjs/config';
 
-import { Environment } from '../../../utils';
+import { Environment } from '../../utils';
 
 @Injectable()
 export class AppConfigService extends ConfigService<Environment, true> {

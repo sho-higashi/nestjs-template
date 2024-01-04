@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 
-import { UserRepository } from '../../repository/user.repository';
+import { UserRepository } from '../../infrastructure/repository/user.repository';
 
 @Injectable()
 export class UserGuard implements CanActivate {

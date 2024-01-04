@@ -4,9 +4,9 @@ import { Response } from 'express';
 import fs from 'fs';
 import { join } from 'path';
 
-import { SCHEMA_FILE_NAME } from '../../consts';
-import { isEnvForDev } from '../../utils';
-import { AppConfigService } from '../infra/app-config/app-config.service';
+import { SCHEMA_FILE_NAME } from '../../../consts';
+import { isEnvForDev } from '../../../utils';
+import { AppConfigService } from '../../core/app-config.service';
 
 /**
  * 開発用にopenapiの仕様書をjson形式で返すためのコントローラー

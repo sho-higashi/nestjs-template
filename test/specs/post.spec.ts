@@ -6,12 +6,12 @@ import {
   RemovePostsDto,
   RemovePostsResponse,
   UpdatePostDto,
-} from '../../src/modules/domain/post/dto';
+} from '../../src/modules/application/post/dto';
 import {
   ListPostResponse,
   PostResponse,
-} from '../../src/modules/domain/post/entities';
-import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+} from '../../src/modules/application/post/entities';
+import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import {
   bootstrap,
   cleanup,

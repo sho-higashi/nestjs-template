@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppModule } from '../../src/app.module';
-import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import { cleanup } from './cleanup';
 import { prepareUsers } from './prepare';
 

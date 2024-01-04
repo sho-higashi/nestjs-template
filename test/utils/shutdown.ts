@@ -1,4 +1,4 @@
-import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import { NestApp } from './bootstrap';
 import { cleanup } from './cleanup';
 

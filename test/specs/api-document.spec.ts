@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 
-import { PrismaService } from '../../src/modules/infra/prisma/prisma.service';
+import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import {
   bootstrap,
   cleanup,

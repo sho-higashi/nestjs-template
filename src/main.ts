@@ -6,8 +6,7 @@ import { join } from 'path';
 
 import { AppModule } from './app.module';
 import { DOCUMENT_JWT_AUTH_NAME, SCHEMA_FILE_NAME } from './consts';
-import { AppConfigService } from './modules/infra/app-config/app-config.service';
-import { AppLoggingService } from './modules/infra/app-logging/app-logging.service';
+import { AppConfigService, AppLoggingService } from './modules/core';
 import { isEnvForDev } from './utils';
 
 const setupOpenapiDocument = (app: INestApplication) => {

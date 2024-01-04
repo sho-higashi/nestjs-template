@@ -88,6 +88,17 @@ returns
 }
 ```
 
+### commit
+
+- semantic git commits by git-cz is recommended
+- commit by following commands
+
+```sh
+pnpm commit
+# or
+pnpm commit:all
+```
+
 ### develop dockerfile for production
 
 ```sh
