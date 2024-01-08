@@ -1,6 +1,6 @@
 # compiled output
 /dist
-/node_modules
+node_modules
 
 # Logs
 logs
@@ -39,3 +39,9 @@ lerna-debug.log*
 
 # docker
 .db
+
+# cdk
+.cdk.staging
+cdk.out
+cdk/**/*.js
+cdk/**/*.d.ts

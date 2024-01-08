@@ -16,6 +16,10 @@ const config = {
     'dist',
     'generated',
     'openapi-spec.json',
+    // cdk
+    'cdk.out',
+    'cdk/bin/cdk.js',
+    'cdk/lib/cdk-stack.js',
   ],
   overrides: [
     {

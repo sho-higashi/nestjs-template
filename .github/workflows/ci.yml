@@ -29,3 +29,14 @@ jobs:
           pnpm build
           pnpm prepare:test:e2e
           pnpm test
+  ci-cdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Lint, Build, and Test
+        working-directory: ./cdk
+        run: |
+          pnpm install
+          pnpm build
+          pnpm test
