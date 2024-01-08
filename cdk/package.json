@@ -25,12 +25,11 @@
   "packageManager": "pnpm@8.14.0",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc -w",
     "cdk": "cdk",
     "deploy:cdk": "cdk deploy",
     "diff:cdk": "cdk diff",
     "synth:cdk": "cdk synth",
-    "test": "jest"
+    "test": "pnpm build && jest"
   },
   "version": "0.0.1"
 }

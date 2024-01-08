@@ -1,16 +1,37 @@
 import { App } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 
-import { HelloCdkStack } from '../lib/cdk-stack';
+import { CdkEventBridgeCronStack } from '../lib/cdk-stack';
 
-test('S3 Bucket Created', () => {
+test('EventBridge Stack Created', () => {
   const app = new App();
-  const stack = new HelloCdkStack(app, 'MyTestStack');
+  const stack = new CdkEventBridgeCronStack(app, 'TestStack');
 
   const template = Template.fromStack(stack);
-  template.hasResourceProperties('AWS::S3::Bucket', {
-    VersioningConfiguration: { Status: 'Enabled' },
-  });
+  expect(() => {
+    template.hasResourceProperties('AWS::Events::Connection', {
+      AuthParameters: {
+        ApiKeyAuthParameters: {
+          ApiKeyName: 'Authorization',
+        },
+      },
+      AuthorizationType: 'API_KEY',
+      Name: 'cdk-eventbridge-call-slack-api-connection',
+    });
+  }).not.toThrow();
 
-  expect(1).toBe(1);
+  expect(() => {
+    template.hasResourceProperties('AWS::Events::ApiDestination', {
+      HttpMethod: 'POST',
+      InvocationEndpoint: 'https://slack.com/api/chat.postMessage',
+      Name: 'cdk-eventbridge-call-slack-api-destination',
+    });
+  }).not.toThrow();
+
+  expect(() => {
+    template.hasResourceProperties('AWS::Events::Rule', {
+      ScheduleExpression: 'cron(* * * * ? *)',
+      State: 'ENABLED',
+    });
+  }).not.toThrow();
 });

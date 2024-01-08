@@ -25,6 +25,7 @@
     "datasource",
     "depcruise",
     "dtos",
+    "eventbridge",
     "fkey",
     "higashi",
     "isready",
