@@ -1,8 +1,8 @@
 {
-  "**/*.ts": ["eslint --fix"],
   "**/*.{js,ts,json,yml}": [
     "cspell -c ./cspell.json --no-must-find-files --no-progress",
     "prettier --write --plugin=prettier-plugin-sort-json"
   ],
-  "**/schema.prisma": ["prisma format"]
+  "**/schema.prisma": ["prisma format"],
+  "src/**/*.ts": ["eslint --fix"]
 }
