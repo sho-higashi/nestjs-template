@@ -18,11 +18,12 @@ const config = {
     'openapi-spec.json',
     // cdk
     'cdk.out',
-    'cdk/bin/cdk.js',
-    'cdk/lib/cdk-stack.js',
+    'cdk/**/*.js',
+    'cdk/**/*.d.ts',
   ],
   overrides: [
     {
+      excludedFiles: ['cdk/**/*.ts'],
       files: ['*.ts'],
       parserOptions: {
         project: './tsconfig.json',
@@ -34,6 +35,15 @@ const config = {
       files: ['*.json'],
       parserOptions: { sourceType: 'module' },
       rules: { 'comma-dangle': ['off'] },
+    },
+    {
+      // cdk
+      files: ['cdk/**/*.ts', 'cdk/**/*.spec.ts'],
+      parserOptions: {
+        project: './cdk/tsconfig.json',
+        sourceType: 'module',
+        tsconfigRootDir: __dirname,
+      },
     },
   ],
   parser: '@typescript-eslint/parser',

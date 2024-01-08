@@ -19,5 +19,6 @@
     "target": "ES2020",
     "typeRoots": ["./node_modules/@types"]
   },
-  "exclude": ["node_modules", "cdk.out", "test", "jest.config.ts"]
+  "exclude": ["node_modules", "cdk.out"],
+  "include": ["lib/**/*", "bin/**/*"]
 }

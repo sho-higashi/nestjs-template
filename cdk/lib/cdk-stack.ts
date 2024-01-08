@@ -34,14 +34,14 @@ export class CdkEventBridgeCronStack extends cdk.Stack {
           'Authorization',
           authorizationSecret,
         ),
-        connectionName: cdkPrefix + '-connection',
-        description: 'Connection with special password',
         bodyParameters: {
           channel: events.HttpParameter.fromSecret(channelIdSecret),
           text: events.HttpParameter.fromString(
             'post message from eventbridge deployed by cdk with secret manager',
           ),
         },
+        connectionName: cdkPrefix + '-connection',
+        description: 'Connection with special password',
       },
     );
 

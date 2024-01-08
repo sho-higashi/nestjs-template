@@ -7,7 +7,8 @@ const config: Config = {
   rootDir: '.',
   setupFiles: ['./.jest/jest.setup.ts'],
   testEnvironment: 'node',
-  testRegex: 'src.*\\.spec\\.ts$',
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cdk'],
+  testRegex: '.*\\.spec\\.ts$',
   transform: {
     '^.+\\.(t|j)s$': '@swc/jest',
   },
