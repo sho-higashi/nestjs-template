@@ -5,17 +5,16 @@ import {
 } from '@nestjs/common';
 
 import { isEmptyString } from '../../../utils';
-import { Post } from '../../infrastructure/prisma/prisma';
+import { Post as PrismaPost } from '../../infrastructure/prisma/prisma';
 import { PostRepository } from '../../infrastructure/repository/post.repository';
 import { AuthUser } from '../../interfaces';
 import {
   CreatePostDto,
   ListPostDto,
   RemovePostsDto,
-  RemovePostsResponse,
   UpdatePostDto,
 } from './dto';
-import { ListPostResponse, PostResponse } from './entities';
+import { ListPostResponse, Post, RemovePostsResponse } from './response';
 
 @Injectable()
 export class PostService {
@@ -51,13 +50,13 @@ export class PostService {
     return found;
   };
 
-  async get(user: AuthUser, id: string): Promise<PostResponse> {
+  async get(user: AuthUser, id: string): Promise<Post> {
     const found = await this.#findByIdOrThrow(id, user);
 
     return this.convert(found);
   }
 
-  async create(user: AuthUser, dto: CreatePostDto): Promise<PostResponse> {
+  async create(user: AuthUser, dto: CreatePostDto): Promise<Post> {
     if (dto.title.length === 0) {
       throw new BadRequestException('title is empty');
     }
@@ -70,11 +69,7 @@ export class PostService {
     return this.convert(created);
   }
 
-  async update(
-    user: AuthUser,
-    id: string,
-    dto: UpdatePostDto,
-  ): Promise<PostResponse> {
+  async update(user: AuthUser, id: string, dto: UpdatePostDto): Promise<Post> {
     if (isEmptyString(dto.title)) {
       throw new BadRequestException('title is empty');
     }
@@ -104,7 +99,7 @@ export class PostService {
     return { success: true };
   }
 
-  convert(post: Post): PostResponse {
+  convert(post: PrismaPost): Post {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { authorId, removedAt, ...rest } = post;
 

@@ -105,8 +105,8 @@ pnpm commit:all
 # build
 docker build --progress=plain -f ./Dockerfile -t nestjs-template .
 
-# run on host port 3001
-docker run -p 3001:3000 --network host nestjs-template
+# run
+docker run -p 3000:3000 --env-file=.env --network nestjs-template_postgres nestjs-template
 ```
 
 ## generate typed api client(openapi-typescript and openapi-fetch example)

@@ -97,7 +97,7 @@
     "prepare:test:e2e": "dotenv -e .env.test -- prisma migrate reset --force",
     "reset:db": "prisma migrate reset --force",
     "start": "nest start",
-    "test": "jest -c ./jest.config.ts .",
+    "test": "jest -c ./jest.config.ts . --runInBand",
     "test:e2e": "jest -c ./jest.config.ts test --runInBand",
     "test:ut": "jest -c ./jest.config.ts src"
   },

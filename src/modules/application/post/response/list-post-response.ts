@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { PostResponse } from './post.entity';
+import { Post } from './post';
 
-export class PaginationDto {
+export class PaginationResponse {
   @ApiProperty()
   page!: number;
 
@@ -12,12 +12,12 @@ export class PaginationDto {
 
 export class ListPostResponse {
   @ApiProperty()
-  pagination!: PaginationDto;
+  pagination!: PaginationResponse;
 
   @ApiProperty({
-    type: [PostResponse],
+    type: [Post],
   })
-  posts!: PostResponse[];
+  posts!: Post[];
 
   @ApiProperty()
   totalCount!: number;

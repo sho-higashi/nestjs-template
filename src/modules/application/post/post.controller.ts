@@ -30,11 +30,14 @@ import {
   CreatePostDto,
   ListPostDto,
   RemovePostsDto,
-  RemovePostsResponse,
   UpdatePostDto,
 } from './dto';
-import { ListPostResponse, PostResponse } from './entities';
 import { PostService } from './post.service';
+import {
+  ListPostResponse,
+  Post as PostResponse,
+  RemovePostsResponse,
+} from './response';
 
 @ApiTags('posts')
 @ApiBearerAuth(DOCUMENT_JWT_AUTH_NAME)

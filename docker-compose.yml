@@ -4,9 +4,16 @@ services:
     image: postgres:15
     ports:
       - 5432:5432
+    networks:
+      - postgres
     environment:
       - POSTGRES_HOST=localhost
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=cKXWeJTY
       - POSTGRES_DB=nestjs_template
+    volumes:
+      - .db/postgres:/var/lib/postgresql/data
+networks:
+  postgres:
+    driver: bridge

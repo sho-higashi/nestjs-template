@@ -1,16 +1,17 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { INestApplication } from '@nestjs/common';
 
 import {
   CreatePostDto,
   ListPostDto,
   RemovePostsDto,
-  RemovePostsResponse,
   UpdatePostDto,
 } from '../../src/modules/application/post/dto';
 import {
   ListPostResponse,
-  PostResponse,
-} from '../../src/modules/application/post/entities';
+  Post,
+  RemovePostsResponse,
+} from '../../src/modules/application/post/response';
 import { PrismaService } from '../../src/modules/infrastructure/prisma/prisma.service';
 import {
   bootstrap,
@@ -103,7 +104,7 @@ describe('PostController', () => {
   });
 
   it('NG: create, empty title or empty content', async () => {
-    const resCreateEmptyTitle = await request<CreatePostDto, PostResponse>(
+    const resCreateEmptyTitle = await request<CreatePostDto, Post>(
       '/posts',
       'post',
       { content: '', title: 'title' },
@@ -111,12 +112,14 @@ describe('PostController', () => {
     );
     expect(resCreateEmptyTitle.status).toBe(400);
     expect(resCreateEmptyTitle.body).toEqual({
+      message: 'content is empty',
+      method: 'POST',
       path: '/posts',
       statusCode: 400,
       timestamp: expect.any(String),
     });
 
-    const resCreateEmptyContent = await request<CreatePostDto, PostResponse>(
+    const resCreateEmptyContent = await request<CreatePostDto, Post>(
       '/posts',
       'post',
       { content: 'content', title: '' },
@@ -124,6 +127,8 @@ describe('PostController', () => {
     );
     expect(resCreateEmptyContent.status).toBe(400);
     expect(resCreateEmptyContent.body).toEqual({
+      message: 'title is empty',
+      method: 'POST',
       path: '/posts',
       statusCode: 400,
       timestamp: expect.any(String),
@@ -133,7 +138,7 @@ describe('PostController', () => {
     const prepared = await prepare(prisma);
 
     /** invalid id */
-    const resUpdateInvalidId = await request<UpdatePostDto, PostResponse>(
+    const resUpdateInvalidId = await request<UpdatePostDto, Post>(
       '/posts/invalid-update-id',
       'put',
       { content: 'content' },
@@ -142,13 +147,15 @@ describe('PostController', () => {
 
     expect(resUpdateInvalidId.status).toBe(404);
     expect(resUpdateInvalidId.body).toEqual({
+      message: 'Post not found',
+      method: 'PUT',
       path: '/posts/invalid-update-id',
       statusCode: 404,
       timestamp: expect.any(String),
     });
 
     /** removed id */
-    const resUpdateRemoved = await request<UpdatePostDto, PostResponse>(
+    const resUpdateRemoved = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post1Removed.id,
       'put',
       { content: 'content' },
@@ -157,13 +164,15 @@ describe('PostController', () => {
 
     expect(resUpdateRemoved.status).toBe(404);
     expect(resUpdateRemoved.body).toEqual({
+      message: 'Post not found',
+      method: 'PUT',
       path: '/posts/' + prepared.post.post1Removed.id,
       statusCode: 404,
       timestamp: expect.any(String),
     });
 
     /** other user's post */
-    const resUpdateOthers = await request<UpdatePostDto, PostResponse>(
+    const resUpdateOthers = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post2.id,
       'put',
       { content: 'content' },
@@ -172,6 +181,8 @@ describe('PostController', () => {
 
     expect(resUpdateOthers.status).toBe(404);
     expect(resUpdateOthers.body).toEqual({
+      message: 'Post not found',
+      method: 'PUT',
       path: '/posts/' + prepared.post.post2.id,
       statusCode: 404,
       timestamp: expect.any(String),
@@ -180,7 +191,7 @@ describe('PostController', () => {
   it('NG: update, empty title or empty content', async () => {
     const prepared = await prepare(prisma);
 
-    const resUpdateEmptyContent = await request<UpdatePostDto, PostResponse>(
+    const resUpdateEmptyContent = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post1.id,
       'put',
       { content: '' },
@@ -189,12 +200,14 @@ describe('PostController', () => {
 
     expect(resUpdateEmptyContent.status).toBe(400);
     expect(resUpdateEmptyContent.body).toEqual({
+      message: 'content is empty',
+      method: 'PUT',
       path: '/posts/' + prepared.post.post1.id,
       statusCode: 400,
       timestamp: expect.any(String),
     });
 
-    const resUpdateEmptyTitle = await request<UpdatePostDto, PostResponse>(
+    const resUpdateEmptyTitle = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post1.id,
       'put',
       { title: '' },
@@ -203,6 +216,8 @@ describe('PostController', () => {
 
     expect(resUpdateEmptyTitle.status).toBe(400);
     expect(resUpdateEmptyTitle.body).toEqual({
+      message: 'title is empty',
+      method: 'PUT',
       path: '/posts/' + prepared.post.post1.id,
       statusCode: 400,
       timestamp: expect.any(String),
@@ -212,7 +227,7 @@ describe('PostController', () => {
     const prepared = await prepare(prisma);
 
     /** invalid id */
-    const resGetInvalidId = await request<UpdatePostDto, PostResponse>(
+    const resGetInvalidId = await request<UpdatePostDto, Post>(
       '/posts/invalid-get-id',
       'get',
       undefined,
@@ -221,13 +236,15 @@ describe('PostController', () => {
 
     expect(resGetInvalidId.status).toBe(404);
     expect(resGetInvalidId.body).toEqual({
+      message: 'Post not found',
+      method: 'GET',
       path: '/posts/invalid-get-id',
       statusCode: 404,
       timestamp: expect.any(String),
     });
 
     /** removed id */
-    const resGetRemoved = await request<UpdatePostDto, PostResponse>(
+    const resGetRemoved = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post1Removed.id,
       'get',
       undefined,
@@ -236,13 +253,15 @@ describe('PostController', () => {
 
     expect(resGetRemoved.status).toBe(404);
     expect(resGetRemoved.body).toEqual({
+      message: 'Post not found',
+      method: 'GET',
       path: '/posts/' + prepared.post.post1Removed.id,
       statusCode: 404,
       timestamp: expect.any(String),
     });
 
     /** other user's post */
-    const resGetOthers = await request<UpdatePostDto, PostResponse>(
+    const resGetOthers = await request<UpdatePostDto, Post>(
       '/posts/' + prepared.post.post2.id,
       'get',
       undefined,
@@ -251,6 +270,8 @@ describe('PostController', () => {
 
     expect(resGetOthers.status).toBe(404);
     expect(resGetOthers.body).toEqual({
+      message: 'Post not found',
+      method: 'GET',
       path: '/posts/' + prepared.post.post2.id,
       statusCode: 404,
       timestamp: expect.any(String),
@@ -268,6 +289,8 @@ describe('PostController', () => {
 
     expect(resUpdateInvalidId.status).toBe(404);
     expect(resUpdateInvalidId.body).toEqual({
+      message: 'Post not found',
+      method: 'DELETE',
       path: '/posts',
       statusCode: 404,
       timestamp: expect.any(String),
@@ -283,6 +306,8 @@ describe('PostController', () => {
 
     expect(resUpdateRemoved.status).toBe(404);
     expect(resUpdateRemoved.body).toEqual({
+      message: 'Post not found',
+      method: 'DELETE',
       path: '/posts/',
       statusCode: 404,
       timestamp: expect.any(String),
@@ -298,6 +323,8 @@ describe('PostController', () => {
 
     expect(resUpdateOthers.status).toBe(404);
     expect(resUpdateOthers.body).toEqual({
+      message: 'Post not found',
+      method: 'DELETE',
       path: '/posts/',
       statusCode: 404,
       timestamp: expect.any(String),
@@ -305,7 +332,7 @@ describe('PostController', () => {
   });
 
   it('scenario: create -> delete -> list, get (not found)', async () => {
-    const resCreate = await request<CreatePostDto, PostResponse>(
+    const resCreate = await request<CreatePostDto, Post>(
       '/posts',
       'post',
       { content: 'content', title: 'title' },
@@ -353,7 +380,7 @@ describe('PostController', () => {
       totalCount: 0,
     });
 
-    const resGet = await request<undefined, PostResponse>(
+    const resGet = await request<undefined, Post>(
       '/posts/' + id,
       'get',
       undefined,
@@ -362,6 +389,8 @@ describe('PostController', () => {
 
     expect(resGet.status).toBe(404);
     expect(resGet.body).toEqual({
+      message: 'Post not found',
+      method: 'GET',
       path: '/posts/' + id,
       statusCode: 404,
       timestamp: expect.any(String),
@@ -369,7 +398,7 @@ describe('PostController', () => {
   });
 
   it('scenario: create -> update', async () => {
-    const resCreate = await request<CreatePostDto, PostResponse>(
+    const resCreate = await request<CreatePostDto, Post>(
       '/posts',
       'post',
       { content: 'content', title: 'title' },
@@ -389,7 +418,7 @@ describe('PostController', () => {
     const { id } = resCreate.body;
 
     const newContent = 'new content';
-    const resUpdate = await request<UpdatePostDto, PostResponse>(
+    const resUpdate = await request<UpdatePostDto, Post>(
       '/posts/' + id,
       'put',
       { content: newContent },

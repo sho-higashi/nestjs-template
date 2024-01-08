@@ -2,6 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ErrorResponse {
   @ApiProperty({
+    example: 'エラーが生じました',
+  })
+  message!: string;
+
+  @ApiProperty({
+    example: 'GET',
+  })
+  method!: string;
+
+  @ApiProperty({
     example: '/request/path',
   })
   path!: string;

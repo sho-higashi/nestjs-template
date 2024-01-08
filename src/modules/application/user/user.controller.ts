@@ -12,7 +12,7 @@ import { DOCUMENT_JWT_AUTH_NAME } from '../../../consts';
 import { AuthUser } from '../../interfaces';
 import { ErrorResponse } from '../shared';
 import { UpdateMeDto } from './dto';
-import { UserResponse } from './entities';
+import { User } from './response';
 import { CurrentUser } from './user.decorator';
 import { UserGuard } from './user.guard';
 import { UserService } from './user.service';
@@ -26,21 +26,21 @@ export class UserController {
 
   @Get('/me')
   @ApiOperation({ summary: "get requested user's profile" })
-  @ApiOkResponse({ type: UserResponse })
+  @ApiOkResponse({ type: User })
   @ApiForbiddenResponse({ type: ErrorResponse })
-  getMe(@CurrentUser() user: AuthUser): UserResponse {
+  getMe(@CurrentUser() user: AuthUser): User {
     return this.service.convert(user);
   }
 
   @Patch('/me')
   @ApiOperation({ summary: "update requested user's profile" })
   @ApiBody({ type: UpdateMeDto })
-  @ApiOkResponse({ type: UserResponse })
+  @ApiOkResponse({ type: User })
   @ApiForbiddenResponse({ type: ErrorResponse })
   updateMe(
     @CurrentUser() user: AuthUser,
     @Body() dto: UpdateMeDto,
-  ): Promise<UserResponse> {
+  ): Promise<User> {
     return this.service.update(user, dto);
   }
 }
