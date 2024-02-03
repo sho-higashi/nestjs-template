@@ -85,7 +85,7 @@
     "format:doc": "prettier --write ./src/openapi-spec.json --plugin=prettier-plugin-sort-json",
     "gen:db": "prisma generate",
     "lint": "concurrently \"npm:lint:*\"",
-    "lint:cspell": "cspell -c cspell.json \"**\" \".*\" \".*/**\" --no-progress",
+    "lint:cspell": "cspell -c cspell.json . --dot --no-progress",
     "lint:db": "zx ./scripts/lint-db.mjs",
     "lint:dep": "depcruise --config .dependency-cruiser.js src",
     "lint:doc": "redocly lint --config redocly.yaml src/openapi-spec.json",
