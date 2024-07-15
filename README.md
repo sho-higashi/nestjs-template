@@ -5,6 +5,8 @@ a template app for nestjs using
 - prisma
 - postgres
 
+mainly for my private usage
+
 ## preparation
 
 ```sh
